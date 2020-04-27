@@ -23,31 +23,54 @@ The main topics that we will execute during this time is:
 8. [ Creating a dashboard on OAC ](#8)
 
 <a name="1"></a>
-# 1. Accessing the Oracle Public Cloud
+#1. Accessing the Oracle Public Cloud
 asdasd
-
+<!-- blank line -->
+----
+<!-- blank line -->
 <a name="2"></a>
 # 2. Setup base Environment
 
+<!-- blank line -->
+----
+<!-- blank line -->
 <a name="3"></a>
 # 3. Provisioning Autonomous Transaction Processing (ATP)
 asdasd
 
+<!-- blank line -->
+----
+<!-- blank line -->
 <a name="4"></a>
 # 4. Provisioning Autonomous Data Warehouse (ADW)
 
+<!-- blank line -->
+----
+<!-- blank line -->
 <a name="5"></a>
 # 5. Provisioning Oracle Analytics Cloud (OAC)
 
+<!-- blank line -->
+----
+<!-- blank line -->
 <a name="6"></a>
 # 6. Create an application on APEX
 
+<!-- blank line -->
+----
+<!-- blank line -->
 <a name="7"></a>
 # 7. Import data from object storage
 
+<!-- blank line -->
+----
+<!-- blank line -->
 <a name="8"></a>
 # 8. Creating a dashboard on OAC
 
+<!-- blank line -->
+----
+<!-- blank line -->
 
 ```
 ::: sql
@@ -56,15 +79,3 @@ dbms_cloud.Create_credential (credential_name => v_credencial, username => v_usu
 
 ```
 
-1. [ Description. ](#desc)
-2. [ Usage tips. ](#usage)
-
-<a name="desc"></a>
-## 1. Description
-
-sometext
-
-<a name="usage"></a>
-## 2. Usage tips
-
-sometext
