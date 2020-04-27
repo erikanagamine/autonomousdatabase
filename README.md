@@ -23,8 +23,9 @@ The main topics that we will execute during this time is:
 8. [ Creating a dashboard on OAC ](#8)
 
 <a name="1"></a>
-#1. Accessing the Oracle Public Cloud
-asdasd
+# 1. Accessing the Oracle Public Cloud
+On your web browser, visit the oracle [site](http://www.oracle.com "Oracle Official Site")
+![oracle site!](1.png "oracle site")
 <!-- blank line -->
 ----
 <!-- blank line -->
