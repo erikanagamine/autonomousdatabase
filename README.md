@@ -80,18 +80,24 @@ And you have your profile configuration on the top right of main page
 
 ![oracle cloud site!](images/16.png "oracle Cloud site")
 
-[ Return to top ](#top)
-
 
 <!-- blank line -->
 ----
 <!-- blank line -->
+
+[ Return to top ](#top)
+
+
 <a name="2"></a>
 # 2. Setup base Environment
 
 <!-- blank line -->
 ----
 <!-- blank line -->
+
+[ Return to top ](#top)
+
+
 <a name="3"></a>
 # 3. Provisioning Autonomous Transaction Processing (ATP)
 asdasd
@@ -99,6 +105,10 @@ asdasd
 <!-- blank line -->
 ----
 <!-- blank line -->
+
+[ Return to top ](#top)
+
+
 <a name="4"></a>
 # 4. Provisioning Autonomous Data Warehouse (ADW)
 
