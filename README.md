@@ -44,10 +44,23 @@ On "Sign in" page, put the information about your cloud account:
 
 ![oracle site!](images/06.png "oracle site")
 
-Then Click in next:
-
 ![oracle site!](images/07.png "oracle site")
 
+Then click in next:
+
+![oracle site!](images/08.png "oracle site")
+
+![oracle site!](images/09.png "oracle site")
+
+At this moment you need to inform your account and password:
+
+![oracle site!](images/10.png "oracle site")
+
+![oracle site!](images/11.png "oracle site")
+
+Then click in next:
+
+![oracle site!](images/12.png "oracle site")
 
 
 <!-- blank line -->
