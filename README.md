@@ -443,7 +443,7 @@ On the main page of SQL Developer Web, you can execute the queries:
 
 ![oracle cloud site!](images/67.png "oracle Cloud site")
 
-Now you can edit and copy the information below with your information and execute on SQL Developer Web:
+Now you can edit and copy the information below with your information and execute on SQL Developer Web, using "Run Script" button or F5:
 
 ```
 -- Create credential
@@ -468,6 +468,7 @@ If you execute sucessfully, you hit the message below:
 
 ![oracle cloud site!](images/68.png "oracle Cloud site")
 
+Then Create table called "vendas":
 
 ```
     CREATE TABLE vendas 
@@ -488,39 +489,37 @@ If you execute sucessfully, you hit the message below:
 
 ```
 
+![oracle cloud site!](images/69.png "oracle Cloud site")
+
 
 ```
 declare
   v_region      varchar2(30) :=    '<your region>'; --'coloque aqui a region, exemplo us-phoenix-1';
   v_namespace   varchar2(30) :=    '<your namespace>'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
   v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemplo: Workshop_Object';
-  v_table_name  varchar2(30) := 'VENDAS';
+  v_table_name  varchar2(30) := 'APPDW.VENDAS';
   v_data_source varchar2(100) := 'vendas.csv';
   v_credential  VARCHAR2(100) := 'OBJ_STORAGE_DATA';
   v_url         varchar2(4000);
   
 begin
-  v_url := 'https://swiftobjectstorage.'||v_region||'.oraclecloud.com/v1/'||v_namespace||'/'||v_bucket||'/'||v_data_source;
+    v_url := 'https://swiftobjectstorage.'||v_region||'.oraclecloud.com/v1/'||v_namespace||'/'||v_bucket||'/'||v_data_source;
   
   dbms_output.put_line(v_url);
-  
-  Begin
-     execute immediate 'drop table '|| v_table_name;
-  exception
-    When others then
-       null;
-  end;
   
    DBMS_CLOUD.COPY_DATA(
     table_name => v_table_name,
     credential_name => v_credential,
-    file_uri_list => v_url,
-    format => json_object('ignoremissingcolumns' value 'true','removequotes' value 'true', 'delimiter' value ',', 'skipheaders' value '1', 'dateformat' value 'MM/DD/YYYY')
- );
+    file_uri_list =>v_url,
+format => json_object('ignoremissingcolumns' value 'true','removequotes' value 'true', 'delimiter' value ',', 'skipheaders' value '1', 'dateformat' value 'MM/DD/YYYY')
+);
 END;
 /
 
 ```
+
+![oracle cloud site!](images/70.png "oracle Cloud site")
+
 
 ```
 declare
@@ -549,6 +548,8 @@ begin
 END;
 /
 ```
+![oracle cloud site!](images/71.png "oracle Cloud site")
+
 
 Check if your data have been loaded on tables:
 
@@ -557,10 +558,24 @@ select * from produtos;
 
 ```
 
+![oracle cloud site!](images/72.png "oracle Cloud site")
+
 ```
 select * from vendas;
 
 ```
+
+![oracle cloud site!](images/73.png "oracle Cloud site")
+
+PS.: For next steps, if you create a different user for Oracle Machine Learning, you need to give the permissions to read tables in another owner:
+
+```
+grant select on produtos to appdw;
+grant select on vendas to appdw;
+
+```
+
+![oracle cloud site!](images/74.png "oracle Cloud site")
 
 
 <!-- blank line -->
@@ -572,10 +587,67 @@ select * from vendas;
 <a name="9"></a>
 # 9. Know your data using OML Notebooks
 
-## Generate a token to connect your database with files on bucket
+If you need to see your data in another visualization using notebooks, you can use Oracle Machine Learning.
 
-In this section we will generate a token to connect the files on object storage with autonomous database. 
+Oracle Machine Learning is a platform that possibility you discover your data without necessity of another tool.
 
+On ADW console, click in "Service Console":
+
+![oracle cloud site!](images/75.png "oracle Cloud site")
+
+On service console, click in "Development":
+
+![oracle cloud site!](images/76.png "oracle Cloud site")
+
+Under development tab, click in "Oracle Machine Learning Notebooks":
+
+![oracle cloud site!](images/77.png "oracle Cloud site")
+
+Insert your user data (as you do on step 7):
+
+![oracle cloud site!](images/78.png "oracle Cloud site")
+
+Then click "Sign In":
+
+![oracle cloud site!](images/78.png "oracle Cloud site")
+
+On the main page of OML Notebooks, let's create our own notebook:
+
+![oracle cloud site!](images/79.png "oracle Cloud site")
+
+Click in notebooks:
+
+![oracle cloud site!](images/80.png "oracle Cloud site")
+
+On notebooks page, click in "Create":
+
+![oracle cloud site!](images/81.png "oracle Cloud site")
+
+On creation page, insert a name for your notebook, then click ok:
+
+![oracle cloud site!](images/82.png "oracle Cloud site")
+
+![oracle cloud site!](images/83.png "oracle Cloud site")
+
+On notebook page, you can do selects and visualize your data
+
+![oracle cloud site!](images/84.png "oracle Cloud site")
+
+![oracle cloud site!](images/85.png "oracle Cloud site")
+
+```
+%script
+
+select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
+from admin.vendas v inner join admin.produtos p
+on v.id_produto = p.id_produto
+group by p.produto;
+
+```
+
+![oracle cloud site!](images/86.png "oracle Cloud site")
+
+![oracle cloud site!](images/87.png "oracle Cloud site")
 
 
 <!-- blank line -->
