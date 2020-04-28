@@ -139,11 +139,16 @@ Click on your created bucket:
 
 ![oracle cloud site!](images/27.png "oracle Cloud site")
 
+>> Download files for this workshop:
+>> <a href="files/Vendas.csv">Vendas.csv</a>
+
 On your bucket page, click in "Upload Objects":
 
 ![oracle cloud site!](images/28.png "oracle Cloud site")
 
-![oracle cloud site!](images/27.png "oracle Cloud site")
+On upload page, 
+
+![oracle cloud site!](images/29.png "oracle Cloud site")
 
 
 <!-- blank line -->
