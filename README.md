@@ -140,7 +140,7 @@ Click on your created bucket:
 ![oracle cloud site!](images/27.png "oracle Cloud site")
 
 >> Download files for this workshop:
->> <a href="files/Vendas.csv">Vendas.csv</a>
+>> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/Vendas.csv">Vendas.csv</a>
 
 On your bucket page, click in "Upload Objects":
 
