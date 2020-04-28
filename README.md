@@ -62,6 +62,21 @@ Then click in next:
 
 ![oracle site!](images/12.png "oracle site")
 
+On Console page, you have the menu on the left top of the screen:
+
+![oracle Cloud site!](images/13.png "oracle cloud site")
+
+![oracle cloud site!](images/14.png "oracle Cloud site")
+
+Menu contains all those services that you can use on cloud.
+
+Also you have on the top of your screen the region that you are logged in: 
+
+![oracle cloud site!](images/15.png "oracle Cloud site")
+
+And you have your profile configuration on the top right of main page
+
+![oracle cloud site!](images/16.png "oracle Cloud site")
 
 <!-- blank line -->
 ----
