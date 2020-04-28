@@ -16,13 +16,15 @@ The main topics that we will execute during this time is:
 <a name="#top">Menu:</a>
 
 1. [ Accessing the Oracle Public Cloud ](#1)
-2. [ Setup base Environment ](#2)
+2. [ Setup your environment ](#2)
 3. [ Provisioning Autonomous Transaction Processing (ATP) ](#3)
 4. [ Provisioning Autonomous Data Warehouse (ADW) ](#4)
 5. [ Provisioning Oracle Analytics Cloud (OAC) ](#5)
 6. [ Create an application on APEX ](#6)
-7. [ Import data from object storage ](#7)
-8. [ Creating a dashboard on OAC ](#8)
+7. [ Oracle Machine Learning ](#7)
+8. [ SQL Developer Web ](#8)
+9. [ Know your data using OML Notebooks ](#9)
+10. [ Creating a dashboard on OAC ](#10)
 
 <a name="1"></a>
 # 1. Accessing the Oracle Public Cloud
@@ -89,7 +91,7 @@ And you have your profile configuration on the top right of main page
 
 
 <a name="2"></a>
-# 2. Setup your Environment
+# 2. Setup your environment
 
 ## Create a compartment
 First you need to create the compartment. To create your compartment, click on menu -> identity -> Compartment
@@ -175,7 +177,7 @@ Check if files was download correctly:
 <a name="3"></a>
 # 3. Provisioning Autonomous Transaction Processing (ATP)
 
-In this session we will provision an Autonomous database Transaction Processing. This database is designed for OLTP.
+In this session we will provision an Autonomous Transaction Processing Database. This database is designed for OLTP.
 
 So, to start the provision, go to menu -> Databases -> Autonomous Transaction Processing:
 
@@ -239,6 +241,62 @@ When the process finish, the work ATP will change to green:
 <a name="4"></a>
 # 4. Provisioning Autonomous Data Warehouse (ADW)
 
+In this session we will provision an Autonomous Data Warehouse Database. This database is designed for DW.
+
+So, to start the provision, go to menu -> Databases -> Autonomous Data Warehouse:
+
+![oracle cloud site!](images/41.png "oracle Cloud site")
+
+Check if you are on the right compartment:
+
+![oracle cloud site!](images/34.png "oracle Cloud site")
+
+Then Click in "Create Autonomous Database"
+
+![oracle cloud site!](images/34.png "oracle Cloud site")
+
+On the creation page:
+
+![oracle cloud site!](images/42.png "oracle Cloud site")
+
+Check if the follow information was filled:
+- Compartment: <check if is correct>
+- Display name: <put an name - Example: atp>
+- Database name: <put an name - Example: atp>
+- Choose the workload type: in this case Transaction Processing
+- Choose deployment type: Shared infrasctructure
+
+![oracle cloud site!](images/43.png "oracle Cloud site")
+
+Continue choosing this options:
+- No Always Free option
+- Choose database version: 18c
+- OCPU Count: 1
+- Storage (TB): 1
+- No auto scaling
+- Choose the admin Password that you want
+
+![oracle cloud site!](images/44.png "oracle Cloud site")
+
+Options that you need to choose:
+- Allow Secure access from everywhere
+- Choose licensing type: Byol
+
+And then click in "Create autonomous database":
+
+![oracle cloud site!](images/45.png "oracle Cloud site")
+
+![oracle cloud site!](images/46.png "oracle Cloud site")
+
+During creation process time, you will see the amber color of word "ADW":
+
+![oracle cloud site!](images/47.png "oracle Cloud site")
+
+When the process finish, the work ADW will change to green:
+
+![oracle cloud site!](images/48.png "oracle Cloud site")
+
+
 <!-- blank line -->
 ----
 <!-- blank line -->
@@ -265,9 +323,34 @@ When the process finish, the work ATP will change to green:
 
 [ Return to top ](#top)
 
-
 <a name="7"></a>
-# 7. Import data from object storage
+# 7. Oracle Machine Learning
+
+
+
+<!-- blank line -->
+----
+<!-- blank line -->
+
+[ Return to top ](#top)
+
+<a name="8"></a>
+# 8. SQL Developer Web
+
+## Generate a token to connect your database with files on bucket
+
+In this section we will generate a token to connect the files on object storage with autonomous database. 
+
+
+
+<!-- blank line -->
+----
+<!-- blank line -->
+
+[ Return to top ](#top)
+
+<a name="9"></a>
+# 9. Know your data using OML Notebooks
 
 ## Generate a token to connect your database with files on bucket
 
@@ -282,8 +365,8 @@ In this section we will generate a token to connect the files on object storage 
 [ Return to top ](#top)
 
 
-<a name="8"></a>
-# 8. Creating a dashboard on OAC
+<a name="10"></a>
+# 10. Creating a dashboard on OAC
 
 <!-- blank line -->
 ----
