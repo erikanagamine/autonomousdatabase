@@ -13,6 +13,7 @@ During this time, we will construct a integrated data platform with a transactio
 
 The main topics that we will execute during this time is:
 
+[ Index: ](#top)
 1. [ Accessing the Oracle Public Cloud ](#1)
 2. [ Setup base Environment ](#2)
 3. [ Provisioning Autonomous Transaction Processing (ATP) ](#3)
@@ -77,6 +78,8 @@ Also you have on the top of your screen the region that you are logged in:
 And you have your profile configuration on the top right of main page
 
 ![oracle cloud site!](images/16.png "oracle Cloud site")
+
+<a name="top">Return to top</a>
 
 <!-- blank line -->
 ----
