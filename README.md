@@ -26,19 +26,19 @@ The main topics that we will execute during this time is:
 # 1. Accessing the Oracle Public Cloud
 On your web browser, visit the oracle [site](http://www.oracle.com "Oracle Official Site")
 
-![oracle site!](01.png "oracle site")
+![oracle site!](images/01.png "oracle site")
 
 On Oracle website, go to "View accounts":
 
-![oracle site!](02.png "oracle site")
+![oracle site!](images/02.png "oracle site")
 
-![oracle site!](03.png "oracle site")
+![oracle site!](images/03.png "oracle site")
 
 On "View Accounts" click in "Sign in to cloud":
 
-![oracle site!](04.png "oracle site")
+![oracle site!](images/04.png "oracle site")
 
-![oracle site!](05.png "oracle site")
+![oracle site!](images/05.png "oracle site")
 
 
 
