@@ -14,12 +14,12 @@ During this time, we will construct a integrated data platform with a transactio
 The main topics that we will execute during this time is:
 
 1. [ Accessing the Oracle Public Cloud ](#1)
-2. Setup base Environment
-3. Provisioning Autonomous Transaction Processing (ATP)
-4. Provisioning Autonomous Data Warehouse (ADW)
-5. Provisioning Oracle Analytics Cloud (OAC)
-6. Create an application on APEX
-7. Import data from object storage
+2. [ Setup base Environment ](#2)
+3. [ Provisioning Autonomous Transaction Processing (ATP) ](#3)
+4. [ Provisioning Autonomous Data Warehouse (ADW) ](#4)
+5. [ Provisioning Oracle Analytics Cloud (OAC) ](#5)
+6. [ Create an application on APEX ](#6)
+7. [ Import data from object storage ](#7)
 8. [ Creating a dashboard on OAC ](#8)
 
 <a name="1"></a>
@@ -40,6 +40,13 @@ On "View Accounts" click in "Sign in to cloud":
 
 ![oracle site!](images/05.png "oracle site")
 
+On "Sign in" page, put the information about your cloud account:
+
+![oracle site!](images/06.png "oracle site")
+
+Then Click in next:
+
+![oracle site!](images/07.png "oracle site")
 
 
 
