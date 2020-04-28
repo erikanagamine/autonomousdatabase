@@ -381,12 +381,186 @@ PS: remember the user create and password. You will use this on step 9.
 <a name="8"></a>
 # 8. SQL Developer Web
 
-Before access the SQL Developer Web
+On SQL Developer Web, we will load data from files load into object storage. This activity needs an auth token.
 
 ## Generate a token to connect your database with files on bucket
 
 In this section we will generate a token to connect the files on object storage with autonomous database. 
 
+First access your user data, on the top of screen, click on profile and click on your user:
+
+![oracle cloud site!](images/58.png "oracle Cloud site")
+
+Click in "Auth token" (menu at left of your screen) and then Click on "Generate token":
+
+![oracle cloud site!](images/59.png "oracle Cloud site")
+
+Save this generated token into a file.
+
+![oracle cloud site!](images/60.png "oracle Cloud site")
+
+PS: This token is generated once per time. If you lose this token, you need to create another one.
+
+![oracle cloud site!](images/61.png "oracle Cloud site")
+
+## Upload bucket files on SQL Developer Web
+
+First we need to access the SQL Developer Web in ADW. So, to access this tool, go to menu -> Databases -> Autonomous Data Warehouse:
+
+![oracle cloud site!](images/41.png "oracle Cloud site")
+
+Check if you are on the right compartment:
+
+![oracle cloud site!](images/34.png "oracle Cloud site")
+
+In the ADW page, select your ADW:
+
+![oracle cloud site!](images/49.png "oracle Cloud site")
+
+Click on "tools" tab:
+
+![oracle cloud site!](images/50.png "oracle Cloud site")
+
+And then, click on SQL Developer Web:
+
+![oracle cloud site!](images/62.png "oracle Cloud site")
+
+Under SQL Developer Web tab, insert your user as admin and password:
+
+![oracle cloud site!](images/63.png "oracle Cloud site")
+
+And then click in "Sign In":
+
+![oracle cloud site!](images/64.png "oracle Cloud site")
+
+Congratulations! You logged on SQL Developer!
+
+![oracle cloud site!](images/65.png "oracle Cloud site")
+
+# Create credential to load data from object storage
+
+On the main page of SQL Developer Web, you can execute the queries:
+
+![oracle cloud site!](images/67.png "oracle Cloud site")
+
+Now you can edit and copy the information below with your information and execute on SQL Developer Web:
+
+```
+-- Create credential
+DECLARE 
+    v_credential VARCHAR2(100) := 'OBJ_STORAGE_DATA'; 
+    v_user       VARCHAR2(100) := '<insert your user>'; -- example: 'oracleidentitycloudservice/meuusuario@meuemail.com'; 
+    v_password   VARCHAR2(100) := '<insert your token'; -- example: 'h<fMHJiGKVvvgl2uz0[Q';
+BEGIN 
+    dbms_cloud.Drop_credential(credential_name => v_credential); 
+EXCEPTION 
+    WHEN OTHERS THEN 
+      BEGIN 
+          dbms_cloud.Create_credential (credential_name => v_credential, 
+                                        username => v_user,
+                                        password => v_password); 
+      END; 
+END;
+/ 
+```
+
+If you execute sucessfully, you hit the message below:
+
+![oracle cloud site!](images/68.png "oracle Cloud site")
+
+
+```
+    CREATE TABLE vendas 
+      ( 
+         id          NUMBER, 
+         id_cliente  NUMBER, 
+         id_pedido   NUMBER, 
+         id_produto  NUMBER, 
+         data_pedido DATE, 
+         valor       NUMBER(38, 2), 
+         quantidade  NUMBER, 
+         valor_total NUMBER(38, 2), 
+         canal       VARCHAR2(50), 
+         unidade     VARCHAR2(300), 
+         latitude    VARCHAR2(20), 
+         longitude   VARCHAR2(20) 
+      ); 
+
+```
+
+
+```
+declare
+  v_region      varchar2(30) :=    '<your region>'; --'coloque aqui a region, exemplo us-phoenix-1';
+  v_namespace   varchar2(30) :=    '<your namespace>'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
+  v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemplo: Workshop_Object';
+  v_table_name  varchar2(30) := 'VENDAS';
+  v_data_source varchar2(100) := 'vendas.csv';
+  v_credential  VARCHAR2(100) := 'OBJ_STORAGE_DATA';
+  v_url         varchar2(4000);
+  
+begin
+  v_url := 'https://swiftobjectstorage.'||v_region||'.oraclecloud.com/v1/'||v_namespace||'/'||v_bucket||'/'||v_data_source;
+  
+  dbms_output.put_line(v_url);
+  
+  Begin
+     execute immediate 'drop table '|| v_table_name;
+  exception
+    When others then
+       null;
+  end;
+  
+   DBMS_CLOUD.COPY_DATA(
+    table_name => v_table_name,
+    credential_name => v_credential,
+    file_uri_list => v_url,
+    format => json_object('ignoremissingcolumns' value 'true','removequotes' value 'true', 'delimiter' value ',', 'skipheaders' value '1', 'dateformat' value 'MM/DD/YYYY')
+ );
+END;
+/
+
+```
+
+```
+declare
+  v_region      varchar2(30) :=    '<your region>'; --'coloque aqui a region, exemplo us-phoenix-1';
+  v_namespace   varchar2(30) :=    '<your namespace>'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
+  v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemplo: Workshop_Object';
+  v_table_name  varchar2(30) := 'PRODUTOS';
+  v_data_source varchar2(100) := 'dimensao_produto.csv';
+  v_credential  VARCHAR2(100) := 'OBJ_STORAGE_DATA';
+  v_url        varchar2(4000);
+begin
+  
+   v_url := 'https://swiftobjectstorage.'||v_region||'.oraclecloud.com/v1/'||v_namespace||'/'||v_bucket||'/'||v_data_source;
+  
+   dbms_output.put_line(v_url);
+  
+   DBMS_CLOUD.CREATE_EXTERNAL_TABLE(
+    table_name => v_table_name,
+    credential_name => v_credential,
+    file_uri_list => v_url,
+    format => json_object('delimiter' value ',','skipheaders' value '1'),
+    column_list => 'ID_PRODUTO NUMBER,
+    CATEGORIA_PRODUTO VARCHAR(50),
+    PRODUTO VARCHAR(100)'
+ );
+END;
+/
+```
+
+Check if your data have been loaded on tables:
+
+```
+select * from produtos;
+
+```
+
+```
+select * from vendas;
+
+```
 
 
 <!-- blank line -->
@@ -421,10 +595,4 @@ In this section we will generate a token to connect the files on object storage 
 [ Return to top ](#top)
 
 
-```
-::: sql
-%sql
-dbms_cloud.Create_credential (credential_name => v_credencial, username => v_usuario, password => v_senha); 
-
-```
 
