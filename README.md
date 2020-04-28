@@ -89,8 +89,9 @@ And you have your profile configuration on the top right of main page
 
 
 <a name="2"></a>
-# 2. Setup base Environment
+# 2. Setup your Environment
 
+## Create a compartment
 First you need to create the compartment. To create your compartment, click on menu -> identity -> Compartment
 
 ![oracle cloud site!](images/17.png "oracle Cloud site")
@@ -104,6 +105,8 @@ Put your information about your compartment:
 ![oracle cloud site!](images/19.png "oracle Cloud site")
 
 Then click in create.
+
+## Upload files
 
 Second step we will upload the necessary files for this workshop.
 
@@ -140,15 +143,26 @@ Click on your created bucket:
 ![oracle cloud site!](images/27.png "oracle Cloud site")
 
 >> Download files for this workshop:
+
 >> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/Vendas.csv">Vendas.csv</a>
+
+>> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/dimensao_produto.csv">dimensao_produto.csv</a>
 
 On your bucket page, click in "Upload Objects":
 
 ![oracle cloud site!](images/28.png "oracle Cloud site")
 
-On upload page, 
+On upload page, select the folder or drag and drop the downloaded files:
 
 ![oracle cloud site!](images/29.png "oracle Cloud site")
+
+Then click ok:
+
+![oracle cloud site!](images/30.png "oracle Cloud site")
+
+Check if files was download correctly:
+
+![oracle cloud site!](images/31.png "oracle Cloud site")
 
 
 <!-- blank line -->
@@ -160,7 +174,60 @@ On upload page,
 
 <a name="3"></a>
 # 3. Provisioning Autonomous Transaction Processing (ATP)
-asdasd
+
+In this session we will provision an Autonomous database Transaction Processing. This database is designed for OLTP.
+
+So, to start the provision, go to menu -> Databases -> Autonomous Transaction Processing:
+
+![oracle cloud site!](images/32.png "oracle Cloud site")
+
+Check if you are on the right compartment:
+
+![oracle cloud site!](images/34.png "oracle Cloud site")
+
+Then Click in "Create Autonomous Database"
+
+![oracle cloud site!](images/34.png "oracle Cloud site")
+
+On the creation page:
+
+![oracle cloud site!](images/35.png "oracle Cloud site")
+
+Check if the follow information was filled:
+- Compartment: <check if is correct>
+- Display name: <put an name - Example: atp>
+- Database name: <put an name - Example: atp>
+- Choose the workload type: in this case Transaction Processing
+- Choose deployment type: Shared infrasctructure
+
+![oracle cloud site!](images/36.png "oracle Cloud site")
+
+Continue choosing this options:
+- No Always Free option
+- Choose database version: 18c
+- OCPU Count: 1
+- Storage (TB): 1
+- No auto scaling
+- Choose the admin Password that you want
+
+![oracle cloud site!](images/37.png "oracle Cloud site")
+
+Options that you need to choose:
+- Allow Secure access from everywhere
+- Choose licensing type: Byol
+
+And then click in "Create autonomous database":
+
+![oracle cloud site!](images/38.png "oracle Cloud site")
+
+During creation process time, you will see the amber color of word "ATP":
+
+![oracle cloud site!](images/39.png "oracle Cloud site")
+
+When the process finish, the work ATP will change to green:
+
+![oracle cloud site!](images/40.png "oracle Cloud site")
+
 
 <!-- blank line -->
 ----
@@ -201,6 +268,12 @@ asdasd
 
 <a name="7"></a>
 # 7. Import data from object storage
+
+## Generate a token to connect your database with files on bucket
+
+In this section we will generate a token to connect the files on object storage with autonomous database. 
+
+
 
 <!-- blank line -->
 ----
