@@ -261,9 +261,9 @@ On the creation page:
 
 Check if the follow information was filled:
 - Compartment: <check if is correct>
-- Display name: <put an name - Example: atp>
-- Database name: <put an name - Example: atp>
-- Choose the workload type: in this case Transaction Processing
+- Display name: <put an name - Example: adw1>
+- Database name: <put an name - Example: adw1>
+- Choose the workload type: in this case Data Warehouse
 - Choose deployment type: Shared infrasctructure
 
 ![oracle cloud site!](images/43.png "oracle Cloud site")
@@ -326,7 +326,51 @@ When the process finish, the work ADW will change to green:
 <a name="7"></a>
 # 7. Oracle Machine Learning
 
+The Oracle Machine Learning is an Apache Zeppelin notebook that can help you to know your data.
 
+At this time we will create an user for this tool and can be used in ADW or ATP.
+
+In this workshop, we will create on ADW. Select your ADW on menu page:
+
+![oracle cloud site!](images/41.png "oracle Cloud site")
+
+In the ADW page, select your ADW:
+
+![oracle cloud site!](images/49.png "oracle Cloud site")
+
+Click on "tools" tab:
+
+![oracle cloud site!](images/50.png "oracle Cloud site")
+
+Then click on "Oracle ML User Administration": 
+
+![oracle cloud site!](images/51.png "oracle Cloud site")
+
+On the ML administration page, insert admin as username and the password that you create for admin on ADW creation:
+
+![oracle cloud site!](images/52.png "oracle Cloud site")
+
+Then click in "Sign In":
+
+![oracle cloud site!](images/53.png "oracle Cloud site")
+
+On the ML user administration main page, click in "create" 
+
+![oracle cloud site!](images/54.png "oracle Cloud site")
+
+Insert data from your user:
+
+![oracle cloud site!](images/55.png "oracle Cloud site")
+
+Then click in create:
+
+![oracle cloud site!](images/56.png "oracle Cloud site")
+
+Check if your user has been created:
+
+![oracle cloud site!](images/57.png "oracle Cloud site")
+
+PS: remember the user create and password. You will use this on step 9.
 
 <!-- blank line -->
 ----
@@ -336,6 +380,8 @@ When the process finish, the work ADW will change to green:
 
 <a name="8"></a>
 # 8. SQL Developer Web
+
+Before access the SQL Developer Web
 
 ## Generate a token to connect your database with files on bucket
 
