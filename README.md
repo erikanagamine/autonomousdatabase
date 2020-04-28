@@ -91,6 +91,61 @@ And you have your profile configuration on the top right of main page
 <a name="2"></a>
 # 2. Setup base Environment
 
+First you need to create the compartment. To create your compartment, click on menu -> identity -> Compartment
+
+![oracle cloud site!](images/17.png "oracle Cloud site")
+
+Then click in create compartment:
+
+![oracle cloud site!](images/18.png "oracle Cloud site")
+
+Put your information about your compartment:
+
+![oracle cloud site!](images/19.png "oracle Cloud site")
+
+Then click in create.
+
+Second step we will upload the necessary files for this workshop.
+
+We will create a bucket into an object storage.
+
+To create an object storage bucket, click in menu -> Object Storage -> Object storage
+
+![oracle cloud site!](images/20.png "oracle Cloud site")
+
+Make sure that you are in the right compartment:
+
+![oracle cloud site!](images/21.png "oracle Cloud site")
+
+Then click in "Create bucket":
+
+![oracle cloud site!](images/22.png "oracle Cloud site")
+
+On the bucket creation page, insert the name of desired bucket:
+
+![oracle cloud site!](images/23.png "oracle Cloud site")
+
+![oracle cloud site!](images/24.png "oracle Cloud site")
+
+And then click "create bucket":
+
+![oracle cloud site!](images/25.png "oracle Cloud site")
+
+Check if your bucket has been created:
+
+![oracle cloud site!](images/26.png "oracle Cloud site")
+
+Click on your created bucket:
+
+![oracle cloud site!](images/27.png "oracle Cloud site")
+
+On your bucket page, click in "Upload Objects":
+
+![oracle cloud site!](images/28.png "oracle Cloud site")
+
+![oracle cloud site!](images/27.png "oracle Cloud site")
+
+
 <!-- blank line -->
 ----
 <!-- blank line -->
@@ -115,30 +170,49 @@ asdasd
 <!-- blank line -->
 ----
 <!-- blank line -->
+
+[ Return to top ](#top)
+
+
 <a name="5"></a>
 # 5. Provisioning Oracle Analytics Cloud (OAC)
 
 <!-- blank line -->
 ----
 <!-- blank line -->
+
+[ Return to top ](#top)
+
+
 <a name="6"></a>
 # 6. Create an application on APEX
 
 <!-- blank line -->
 ----
 <!-- blank line -->
+
+[ Return to top ](#top)
+
+
 <a name="7"></a>
 # 7. Import data from object storage
 
 <!-- blank line -->
 ----
 <!-- blank line -->
+
+[ Return to top ](#top)
+
+
 <a name="8"></a>
 # 8. Creating a dashboard on OAC
 
 <!-- blank line -->
 ----
 <!-- blank line -->
+
+[ Return to top ](#top)
+
 
 ```
 ::: sql
