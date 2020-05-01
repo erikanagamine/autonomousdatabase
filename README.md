@@ -146,7 +146,7 @@ Click on your created bucket:
 
 >> Download files for this workshop:
 
->> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/Vendas.csv">Vendas.csv</a>
+>> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/vendas.csv">vendas.csv</a>
 
 >> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/dimensao_produto.csv">dimensao_produto.csv</a>
 
