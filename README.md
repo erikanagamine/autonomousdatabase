@@ -307,6 +307,36 @@ When the process finish, the work ADW will change to green:
 <a name="5"></a>
 # 5. Provisioning Oracle Analytics Cloud (OAC)
 
+In this section, we will provision the Oracle Analytics Cloud, aka. OAC.
+
+First, you need to provision the OAC. So on menu, click on "Solutions and Platform" -> Analytics -> Analytics Cloud:
+
+![oracle cloud site!](images/88.png "oracle Cloud site")
+
+Make sure that you have select the right compartment (on the left), and then click on "
+
+![oracle cloud site!](images/89.png "oracle Cloud site")
+
+Input the follow information on the analytics:
+- INSTANCE NAME: oac
+- DESCRIPTION: My OAC instance
+- FEATURE SET: Enterprise Analytics
+- CAPACITY: OCPU - 2
+- LICENSE TYPE: BYOL (MY ORGANIZATION ALREADY OWNS ORACLE MIDDLEWARE SOFTWARE LICENSES. BRING MY EXISTING MIDDLEWARE SOFTWARE LICENSE TO THE ANALYTICS CLOUD)
+
+Then click in "Create".
+
+![oracle cloud site!](images/90.png "oracle Cloud site")
+
+After click in create, the OAC will be provisioned:
+
+![oracle cloud site!](images/91.png "oracle Cloud site")
+
+You can go ahead on next lessons, because the creation will take few minutes.
+
+![oracle cloud site!](images/92.png "oracle Cloud site")
+
+
 <!-- blank line -->
 ----
 <!-- blank line -->
@@ -659,6 +689,40 @@ group by p.produto;
 
 <a name="10"></a>
 # 10. Creating a dashboard on OAC
+
+Before create a dashboard you need to connect your Database instance to the OAC. To connect your instance in OAC, go to OAC Page:
+
+![oracle cloud site!](images/93.png "oracle Cloud site")
+
+PS. to connect into the
+
+And then click on "Open URL":
+
+![oracle cloud site!](images/94.png "oracle Cloud site")
+
+So, on the OAC page, click in create:
+
+![oracle cloud site!](images/95.png "oracle Cloud site")
+
+and then, click in "Connection":
+
+![oracle cloud site!](images/96.png "oracle Cloud site")
+
+Select the property connection for ADW (autonomous data warehouse):
+
+![oracle cloud site!](images/97.png "oracle Cloud site")
+
+Input your connection information:
+
+![oracle cloud site!](images/98.png "oracle Cloud site")
+
+and then click in save:
+
+![oracle cloud site!](images/99.png "oracle Cloud site")
+
+So, now you have sucessfully connect your ADW with your OAC! :-)
+
+
 
 <!-- blank line -->
 ----
