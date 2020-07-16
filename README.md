@@ -7,7 +7,7 @@
 
 # Autonomous Database
 
-Oracle Autonomous database is an inovative platform for data, including for transaction and analytics data.
+Oracle Autonomous database is an inovative platform for data, including transaction and analytics workloads.
 
 During this time, we will construct a integrated data platform with a transaction application and analytics application.
 
@@ -21,10 +21,11 @@ The main topics that we will execute during this time is:
 4. [ Provisioning Autonomous Data Warehouse (ADW) ](#4)
 5. [ Provisioning Oracle Analytics Cloud (OAC) ](#5)
 6. [ Create an application on APEX ](#6)
-7. [ Oracle Machine Learning ](#7)
-8. [ SQL Developer Web ](#8)
-9. [ Know your data using OML Notebooks ](#9)
-10. [ Creating a dashboard on OAC ](#10)
+7. [ Create an connection Between ATP and ADW ](#7)
+8. [ Oracle Machine Learning ](#8)
+9. [ SQL Developer Web ](#9)
+10. [ Know your data using OML Notebooks ](#10)
+11. [ Creating a dashboard on OAC ](#11)
 
 <a name="1"></a>
 # 1. Accessing the Oracle Public Cloud
@@ -354,7 +355,16 @@ You can go ahead on next lessons, because the creation will take few minutes.
 [ Return to top ](#top)
 
 <a name="7"></a>
-# 7. Oracle Machine Learning
+# 7. Create a connection between ATP and ADW
+
+<!-- blank line -->
+----
+<!-- blank line -->
+
+[ Return to top ](#top)
+
+<a name="8"></a>
+# 8. Oracle Machine Learning
 
 The Oracle Machine Learning is an Apache Zeppelin notebook that can help you to know your data.
 
@@ -408,8 +418,8 @@ PS: remember the user create and password. You will use this on step 9.
 
 [ Return to top ](#top)
 
-<a name="8"></a>
-# 8. SQL Developer Web
+<a name="9"></a>
+# 9. SQL Developer Web
 
 On SQL Developer Web, we will load data from files load into object storage. This activity needs an auth token.
 
@@ -479,8 +489,8 @@ Now you can edit and copy the information below with your information and execut
 -- Create credential
 DECLARE 
     v_credential VARCHAR2(100) := 'OBJ_STORAGE_DATA'; 
-    v_user       VARCHAR2(100) := '<insert your user>'; -- example: 'oracleidentitycloudservice/meuusuario@meuemail.com'; 
-    v_password   VARCHAR2(100) := '<insert your token'; -- example: 'h<fMHJiGKVvvgl2uz0[Q';
+    v_user       VARCHAR2(100) := '<insert your user>'; -- insert here your user, on menu Identity -> Users -> User Details or profile (on the top of your page) -> username (example: oracleidentitycloudservice/myuser@mycompany.com)'; 
+    v_password   VARCHAR2(100) := '<insert your token>'; -- on your user page, click in Auth Tokens -> generate Token (example: 'h<fMHJiGKVvvgl2uz0[Q)';
 BEGIN 
     dbms_cloud.Drop_credential(credential_name => v_credential); 
 EXCEPTION 
@@ -524,7 +534,7 @@ Then Create table called "vendas":
 
 ```
 declare
-  v_region      varchar2(30) :=    '<your region>'; --'coloque aqui a region, exemplo us-phoenix-1';
+  v_region      varchar2(30) :=    '<your region>'; --'insert here a region, exemple us-ashburn-1';
   v_namespace   varchar2(30) :=    '<your namespace>'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
   v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemplo: Workshop_Object';
   v_table_name  varchar2(30) := 'APPDW.VENDAS';
@@ -614,8 +624,8 @@ grant select on vendas to appdw;
 
 [ Return to top ](#top)
 
-<a name="9"></a>
-# 9. Know your data using OML Notebooks
+<a name="10"></a>
+# 10. Know your data using OML Notebooks
 
 If you need to see your data in another visualization using notebooks, you can use Oracle Machine Learning.
 
@@ -687,8 +697,8 @@ group by p.produto;
 [ Return to top ](#top)
 
 
-<a name="10"></a>
-# 10. Creating a dashboard on OAC
+<a name="11"></a>
+# 11. Creating a dashboard on OAC
 
 Before create a dashboard you need to connect your Database instance to the OAC. To connect your instance in OAC, go to OAC Page:
 
