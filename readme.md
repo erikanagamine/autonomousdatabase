@@ -348,6 +348,201 @@ You can go ahead on next lessons, because the creation will take few minutes.
 <a name="6"></a>
 # 6. Create an application on APEX
 
+In this step we will create an application based on a spreedsheet in APEX. Oracle Application Express (APEX) is a low code development tool that can enables you to built an application with few steps.
+
+Before start this step, download this file:
+
+>> Download file to proceed in this step:
+
+>> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/clientes.csv">clientes.csv</a>
+
+
+In this workshop, we will use the APEX on ATP. So, in the main page of ATP:
+
+![oracle cloud site!](images/40.png "oracle Cloud site")
+
+Click in tools:
+
+![oracle cloud site!](images/100.png "oracle Cloud site")
+
+And then Oracle Application Express -> Open APEX:
+
+![oracle cloud site!](images/101.png "oracle Cloud site")
+
+PS. also you can access the same page on  "Service Console" -> Development -> Oracle APEX
+
+On the first access on APEX, insert the admin password:
+
+![oracle cloud site!](images/102.png "oracle Cloud site")
+
+And then click on "Sign in to Administration":
+
+![oracle cloud site!](images/103.png "oracle Cloud site")
+
+Now we have to create the workspace for our application. Workspace is a shared logical space for your application.
+
+Click in create workspace:
+
+![oracle cloud site!](images/104.png "oracle Cloud site")
+
+On the creation page, you will need to insert an information:
+
+![oracle cloud site!](images/105.png "oracle Cloud site")
+
+Input the follow information on the APEX Workspace:
+- Database User: myftadbapp
+- Password: Choose the admin Password that you want
+- Workspace name: myftadbapp
+
+Then click in "Create Workspace".
+
+![oracle cloud site!](images/106.png "oracle Cloud site")
+
+![oracle cloud site!](images/107.png "oracle Cloud site")
+
+If your workspace has been create, you should see a message on the top of page:
+
+![oracle cloud site!](images/108.png "oracle Cloud site")
+
+Click on the created workspace:
+
+![oracle cloud site!](images/109.png "oracle Cloud site")
+
+On the workspace login page:
+
+![oracle cloud site!](images/110.png "oracle Cloud site")
+
+Insert the password that you choose for your workspace and then click in "Sign in":
+
+![oracle cloud site!](images/111.png "oracle Cloud site")
+
+On the main page of your workspace:
+
+![oracle cloud site!](images/111.png "oracle Cloud site")
+
+Click in "app builder":
+
+![oracle cloud site!](images/112.png "oracle Cloud site")
+
+![oracle cloud site!](images/113.png "oracle Cloud site")
+
+On the creation app page:
+
+![oracle cloud site!](images/114.png "oracle Cloud site")
+
+Click in "Create an new app":
+
+![oracle cloud site!](images/115.png "oracle Cloud site")
+
+![oracle cloud site!](images/116.png "oracle Cloud site")
+
+Click in "From a file":
+
+![oracle cloud site!](images/117.png "oracle Cloud site")
+
+Drag and drop the file that you have download on beginning of this step:
+
+![oracle cloud site!](images/118.png "oracle Cloud site")
+
+![oracle cloud site!](images/119.png "oracle Cloud site")
+
+Now the APEX will read the file:
+
+![oracle cloud site!](images/120.png "oracle Cloud site")
+
+Insert the name of table as "CUSTOMERS":
+
+![oracle cloud site!](images/121.png "oracle Cloud site")
+
+Review the information and check the parsed information.
+
+![oracle cloud site!](images/122.png "oracle Cloud site")
+
+And then click on "Load Data". If everything works fine, you will se the follow information:
+
+![oracle cloud site!](images/123.png "oracle Cloud site")
+
+Click on "Create Application".
+
+![oracle cloud site!](images/124.png "oracle Cloud site")
+
+On the create application page, click in "add page":
+
+![oracle cloud site!](images/125.png "oracle Cloud site")
+
+And then, click in "Form":
+
+![oracle cloud site!](images/126.png "oracle Cloud site")
+
+On the form page, insert the page name as "My FT ADB APEX Form":
+
+![oracle cloud site!](images/127.png "oracle Cloud site")
+
+![oracle cloud site!](images/128.png "oracle Cloud site")
+
+![oracle cloud site!](images/129.png "oracle Cloud site")
+
+And then select the "CUSTOMERS" table on box:
+
+![oracle cloud site!](images/130.png "oracle Cloud site")
+
+![oracle cloud site!](images/131.png "oracle Cloud site")
+
+Select in "Include Report" and "Add page":
+
+![oracle cloud site!](images/132.png "oracle Cloud site")
+
+Take a look that your form has been create as a page:
+
+![oracle cloud site!](images/133.png "oracle Cloud site")
+
+Check all features in this page:
+
+![oracle cloud site!](images/134.png "oracle Cloud site")
+
+And then, Click in create application:
+
+![oracle cloud site!](images/135.png "oracle Cloud site")
+
+![oracle cloud site!](images/136.png "oracle Cloud site")
+
+After load, you sucessfully create your first application:
+
+![oracle cloud site!](images/137.png "oracle Cloud site")
+
+Execute your application in "Run Application":
+
+![oracle cloud site!](images/138.png "oracle Cloud site")
+
+On your application page:
+
+![oracle cloud site!](images/139.png "oracle Cloud site")
+
+Insert the user / password of your application and then click in "Sign in":
+
+![oracle cloud site!](images/140.png "oracle Cloud site")
+
+![oracle cloud site!](images/141.png "oracle Cloud site")
+
+Notice that your application has the form page and a dashboard page:
+
+![oracle cloud site!](images/142.png "oracle Cloud site")
+
+You can insert new customers on your form
+
+![oracle cloud site!](images/143.png "oracle Cloud site")
+
+![oracle cloud site!](images/144.png "oracle Cloud site")
+
+![oracle cloud site!](images/145.png "oracle Cloud site")
+
+And you can check some dashboards created by default:
+
+![oracle cloud site!](images/146.png "oracle Cloud site")
+
+So, now you can explore more option with APEX :)
+
+
 <!-- blank line -->
 ----
 <!-- blank line -->
