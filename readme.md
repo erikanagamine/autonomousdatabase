@@ -147,9 +147,9 @@ Click on your created bucket:
 
 >> Download files for this workshop:
 
->> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/vendas.csv">vendas.csv</a>
+>> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/vendas.csv" target="_vendas">vendas.csv</a>
 
->> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/dimensao_produto.csv">dimensao_produto.csv</a>
+>> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/dimensao_produto.csv" target="_produto">dimensao_produto.csv</a>
 
 On your bucket page, click in "Upload Objects":
 
@@ -207,7 +207,7 @@ Check if the follow information was filled:
 
 Continue choosing this options:
 - No Always Free option
-- Choose database version: 18c
+- Choose database version: 19c
 - OCPU Count: 1
 - Storage (TB): 1
 - No auto scaling
@@ -271,7 +271,7 @@ Check if the follow information was filled:
 
 Continue choosing this options:
 - No Always Free option
-- Choose database version: 18c
+- Choose database version: 19c
 - OCPU Count: 1
 - Storage (TB): 1
 - No auto scaling
@@ -354,7 +354,7 @@ Before start this step, download this file:
 
 >> Download file to proceed in this step:
 
->> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/clientes.csv">clientes.csv</a>
+>> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/clientes.csv" target="_clientes">clientes.csv</a>
 
 
 In this workshop, we will use the APEX on ATP. So, in the main page of ATP:
@@ -685,7 +685,7 @@ Now you can edit and copy the information below with your information and execut
 DECLARE 
     v_credential VARCHAR2(100) := 'OBJ_STORAGE_DATA'; 
     v_user       VARCHAR2(100) := '<insert your user>'; -- insert here your user, on menu Identity -> Users -> User Details or profile (on the top of your page) -> username (example: oracleidentitycloudservice/myuser@mycompany.com)'; 
-    v_password   VARCHAR2(100) := '<insert your token>'; -- on your user page, click in Auth Tokens -> generate Token (example: 'h<fMHJiGKVvvgl2uz0[Q)';
+    v_password   VARCHAR2(100) := '<insert your token>'; -- on your user page, click in Auth Tokens -> generate Token example: 'h<fMHJiGKVvvgl2uz0[Q';
 BEGIN 
     dbms_cloud.Drop_credential(credential_name => v_credential); 
 EXCEPTION 
@@ -706,39 +706,60 @@ If you execute sucessfully, you hit the message below:
 Then Create table called "vendas":
 
 ```
-    CREATE TABLE vendas 
-      ( 
-         id          NUMBER, 
-         id_cliente  NUMBER, 
-         id_pedido   NUMBER, 
-         id_produto  NUMBER, 
-         data_pedido DATE, 
-         valor       NUMBER(38, 2), 
-         quantidade  NUMBER, 
-         valor_total NUMBER(38, 2), 
-         canal       VARCHAR2(50), 
-         unidade     VARCHAR2(300), 
-         latitude    VARCHAR2(20), 
-         longitude   VARCHAR2(20) 
-      ); 
+  begin
+    begin 
+      execute immediate 'drop table vendas';
+    exception
+      when others then
+        null;
+    end;
+      
+    execute immediate 'CREATE TABLE ADMIN.VENDAS 
+    ( 
+     PRODUTOS          VARCHAR2(4000) , 
+     CLIENTE_ID        VARCHAR2(4000) , 
+     ID_PEDIDO         VARCHAR2(4000) , 
+     DATA_DO_PEDIDO    VARCHAR2(4000) , 
+     PRODUTO_ID        VARCHAR2(4000) , 
+     PRODUTO_CATEGORIA VARCHAR2(4000) , 
+     PRODUTO           VARCHAR2(4000) , 
+     VALOR             VARCHAR2(4000) , 
+     QUANTIDADE        VARCHAR2(4000) , 
+     VALOR_TOTAL       VARCHAR2(4000) , 
+     CANAL_DE_VENDA    VARCHAR2(4000) , 
+     UNIDADE           VARCHAR2(4000) , 
+     LATITUDE          VARCHAR2(4000) , 
+     LONGITUDE         VARCHAR2(4000) 
+    )';
+   end;
+  /
 
 ```
 
 ![oracle cloud site!](images/69.png "oracle Cloud site")
+
+Execute the query to make sure that table was sucessfully created:
+
+```
+  select * from vendas;
+
+```
+
+Now load data to table:
 
 
 ```
 declare
   v_region      varchar2(30) :=    '<your region>'; --'insert here a region, exemple us-ashburn-1';
   v_namespace   varchar2(30) :=    '<your namespace>'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
-  v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemplo: Workshop_Object';
-  v_table_name  varchar2(30) := 'APPDW.VENDAS';
+  v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemple: Workshop_Object';
+  v_table_name  varchar2(30) := 'VENDAS';
   v_data_source varchar2(100) := 'vendas.csv';
   v_credential  VARCHAR2(100) := 'OBJ_STORAGE_DATA';
   v_url         varchar2(4000);
   
 begin
-    v_url := 'https://swiftobjectstorage.'||v_region||'.oraclecloud.com/v1/'||v_namespace||'/'||v_bucket||'/'||v_data_source;
+    v_url := 'https://objectstorage.'||v_region||'.oraclecloud.com/n/'||v_namespace||'/b/'||v_bucket||'/o/'||v_data_source;
   
   dbms_output.put_line(v_url);
   
@@ -746,28 +767,51 @@ begin
     table_name => v_table_name,
     credential_name => v_credential,
     file_uri_list =>v_url,
-format => json_object('ignoremissingcolumns' value 'true','removequotes' value 'true', 'delimiter' value ',', 'skipheaders' value '1', 'dateformat' value 'MM/DD/YYYY')
+format => json_object('ignoremissingcolumns' value 'true','removequotes' value 'true', 'delimiter' value ',', 'skipheaders' value '0', 'dateformat' value 'MM/DD/YYYY')
 );
 END;
 /
+
 
 ```
 
 ![oracle cloud site!](images/70.png "oracle Cloud site")
 
 
+# PS. If you found some error in this execution, you can query the tables:
+
+- copy$<number_of_your_execution>_log : all log information about execution (example: select * from copy$1_log )
+- copy$<number_of_your_execution>_bad : all bad information during import (example: select * from copy$1_bad )
+
+Also, check if the data on table was sucessfully loaded:
+
+
+```
+select * from vendas;
+
+```
+
+![oracle cloud site!](images/73.png "oracle Cloud site")
+
+
 ```
 declare
-  v_region      varchar2(30) :=    '<your region>'; --'coloque aqui a region, exemplo us-phoenix-1';
+  v_region      varchar2(30) :=    '<your region>'; --'insert here a region, exemple us-ashburn-1';
   v_namespace   varchar2(30) :=    '<your namespace>'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
-  v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemplo: Workshop_Object';
+  v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemple: Workshop_Object';
   v_table_name  varchar2(30) := 'PRODUTOS';
   v_data_source varchar2(100) := 'dimensao_produto.csv';
   v_credential  VARCHAR2(100) := 'OBJ_STORAGE_DATA';
   v_url        varchar2(4000);
 begin
-  
-   v_url := 'https://swiftobjectstorage.'||v_region||'.oraclecloud.com/v1/'||v_namespace||'/'||v_bucket||'/'||v_data_source;
+   Begin
+     execute immediate 'drop table '|| v_table_name;
+   exception
+     when others then
+       null;
+   end;
+
+   v_url := 'https://objectstorage.'||v_region||'.oraclecloud.com/n/'||v_namespace||'/b/'||v_bucket||'/o/'||v_data_source;
   
    dbms_output.put_line(v_url);
   
@@ -775,14 +819,16 @@ begin
     table_name => v_table_name,
     credential_name => v_credential,
     file_uri_list => v_url,
-    format => json_object('delimiter' value ',','skipheaders' value '1'),
-    column_list => 'ID_PRODUTO NUMBER,
-    CATEGORIA_PRODUTO VARCHAR(50),
-    PRODUTO VARCHAR(100)'
+    format => json_object('delimiter' value ',','skipheaders' value '0'),
+    column_list => 'ID_PRODUTO VARCHAR2(4000),
+    CATEGORIA_PRODUTO VARCHAR2(4000),
+    PRODUTO VARCHAR2(4000)'
  );
 END;
 /
+
 ```
+
 ![oracle cloud site!](images/71.png "oracle Cloud site")
 
 
@@ -795,12 +841,6 @@ select * from produtos;
 
 ![oracle cloud site!](images/72.png "oracle Cloud site")
 
-```
-select * from vendas;
-
-```
-
-![oracle cloud site!](images/73.png "oracle Cloud site")
 
 PS.: For next steps, if you create a different user for Oracle Machine Learning, you need to give the permissions to read tables in another owner:
 
