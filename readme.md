@@ -550,7 +550,209 @@ So, now you can explore more option with APEX :)
 [ Return to top ](#top)
 
 <a name="7"></a>
+
 # 7. Create a connection between ATP and ADW
+
+At this time we will use the SQL Developer Web on ATP and ADW to connect those databases.
+
+First we have to copy the wallet to object storage.
+
+On SQL Developer Web, we will load data from files load into object storage. This activity needs an auth token.
+
+## Generate a token to connect your database with files on bucket
+
+In this section we will generate a token to connect the files on object storage with autonomous database.
+
+PS. This is the same step for both databases: ATP and ADW.
+
+First access your user data, on the top of screen, click on profile and click on your user:
+
+![oracle cloud site!](images/58.png "oracle Cloud site")
+
+Click in "Auth token" (menu at left of your screen) and then Click on "Generate token":
+
+![oracle cloud site!](images/59.png "oracle Cloud site")
+
+Save this generated token into a file.
+
+![oracle cloud site!](images/60.png "oracle Cloud site")
+
+PS: This token is generated once per time. If you lose this token, you need to create another one.
+
+![oracle cloud site!](images/61.png "oracle Cloud site")
+
+# Generate a wallet on ATP
+
+On ATP main page, click in "DB Connection":
+
+![oracle cloud site!](images/152.png "oracle Cloud site")
+
+You need to select wallet type as "Regional Wallet" and then click in "Download Wallet":
+
+![oracle cloud site!](images/153.png "oracle Cloud site")
+
+So, then insert a password to download the wallet and then click in download:
+
+![oracle cloud site!](images/154.png "oracle Cloud site")
+
+Notice that wallet was a tnsnames, wallet, etc. files.
+
+Decompress the wallet file and get the "cwallet.sso":
+
+![oracle cloud site!](images/155.png "oracle Cloud site")
+
+Now you have to insert the "cwallet.sso" to the bucket. The step by step how can you create a bucket and insert files was describe in step 2:
+
+![oracle cloud site!](images/156.png "oracle Cloud site")
+
+
+
+# Create credential to load atp wallet to object storage
+
+First connect to the SQL Developer Web on ATP and click in "Tools":
+
+![oracle cloud site!](images/147.png "oracle Cloud site")
+
+Select the SQL Developer Web application:
+
+![oracle cloud site!](images/148.png "oracle Cloud site")
+
+Insert your admin username and password and then click in "Sign In":
+
+![oracle cloud site!](images/149.png "oracle Cloud site")
+
+In this pages, the queries can be executed insert the code on (1) and running click in (2) that shows a tabular view or (3) in script view:
+
+![oracle cloud site!](images/150.png "oracle Cloud site")
+
+
+Now you can edit and copy the information below with your information and execute on SQL Developer Web, using "Run Script" button or F5:
+
+```
+-- Create credential
+DECLARE 
+    v_credential VARCHAR2(100) := 'OBJ_WALLET_DATA'; 
+    v_user       VARCHAR2(100) := '<insert your user>'; -- insert here your user, on menu Identity -> Users -> User Details or profile (on the top of your page) -> username (example: oracleidentitycloudservice/myuser@mycompany.com)'; 
+    v_password   VARCHAR2(100) := '<insert your token>'; -- on your user page, click in Auth Tokens -> generate Token example: 'h<fMHJiGKVvvgl2uz0[Q';
+BEGIN 
+  BEGIN
+    dbms_cloud.Drop_credential(credential_name => v_credential); 
+  EXCEPTION 
+    WHEN OTHERS THEN
+      null;
+  end;
+  BEGIN 
+          dbms_cloud.Create_credential (credential_name => v_credential, 
+                                        username => v_user,
+                                        password => v_password); 
+      END; 
+END;
+/ 
+```
+
+If you execute sucessfully, you hit the message below:
+
+![oracle cloud site!](images/151.png "oracle Cloud site")
+
+Now we can connect download the wallet to object storage:
+
+```
+DECLARE
+  v_region      varchar2(30) :=    '<your region>'; --'insert here a region, exemple us-ashburn-1';
+  v_namespace   varchar2(30) :=    '<your namespace>'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
+  v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemple: Workshop_Object';
+  v_credential  VARCHAR2(100) := 'OBJ_WALLET_DATA';
+  v_url         varchar2(4000);
+
+BEGIN
+  v_url := 'https://objectstorage.'||v_region||'.oraclecloud.com/n/'||v_namespace||'/b/'||v_bucket||'/o/cwallet.sso';
+  
+DBMS_CLOUD.GET_OBJECT(
+credential_name => v_credential,
+object_uri => v_url,
+directory_name => 'DATA_PUMP_DIR');
+END;
+/
+
+```
+![oracle cloud site!](images/157.png "oracle Cloud site")
+
+Create credential to access the database.
+
+Pay attention: in this step the credential was the database user / password, not the token:
+
+```
+
+BEGIN
+DBMS_CLOUD.CREATE_CREDENTIAL(
+credential_name => 'DB_LINK_CRED_ADW',
+username => 'ADMIN',
+password => '<Insert admin password here>'
+);
+END;
+/
+
+```
+
+![oracle cloud site!](images/158.png "oracle Cloud site")
+
+Now you can create the database link to ADW. Most of those information you can check in the tnsnames.ora that you download previosly.
+
+```
+BEGIN
+DBMS_CLOUD_ADMIN.CREATE_DATABASE_LINK(
+db_link_name => 'ADW_LINK',
+hostname => 'adb.<region>.oraclecloud.com',
+port => '1522',
+service_name => '<check on tnsnames>',
+ssl_server_cert_dn => '<check on tnsnames>',
+credential_name => 'DB_LINK_CRED_ADW',
+directory_name => 'DATA_PUMP_DIR');
+END;
+/
+
+```
+
+![oracle cloud site!](images/159.png "oracle Cloud site")
+
+Execute a query to test the connection to ADW:
+
+```
+select * from user_tables@ADW_LINK;
+
+```
+
+![oracle cloud site!](images/160.png "oracle Cloud site")
+
+Notice that at this time there is no table because on ADW we will load tables in next steps.
+
+
+Repeat the same steps for create 2 credentials (for object storage + Database user) and create database link in ADW to ATP, changing the names of database link:
+
+![oracle cloud site!](images/161.png "oracle Cloud site")
+
+![oracle cloud site!](images/162.png "oracle Cloud site")
+
+![oracle cloud site!](images/163.png "oracle Cloud site")
+
+![oracle cloud site!](images/164.png "oracle Cloud site")
+
+![oracle cloud site!](images/165.png "oracle Cloud site")
+
+![oracle cloud site!](images/166.png "oracle Cloud site")
+
+
+Execute a query to test the connection to ATP (observe that we insert the information about table load on APEX):
+
+```
+select * from all_tables@ATP_LINK where table_name='CUSTOMERS' and owner='MYFTADBAPP';
+
+```
+
+![oracle cloud site!](images/166.png "oracle Cloud site")
+
+
+Now you can access data between ATP and ADW!!!
 
 <!-- blank line -->
 ----
@@ -687,10 +889,13 @@ DECLARE
     v_user       VARCHAR2(100) := '<insert your user>'; -- insert here your user, on menu Identity -> Users -> User Details or profile (on the top of your page) -> username (example: oracleidentitycloudservice/myuser@mycompany.com)'; 
     v_password   VARCHAR2(100) := '<insert your token>'; -- on your user page, click in Auth Tokens -> generate Token example: 'h<fMHJiGKVvvgl2uz0[Q';
 BEGIN 
+  BEGIN
     dbms_cloud.Drop_credential(credential_name => v_credential); 
-EXCEPTION 
-    WHEN OTHERS THEN 
-      BEGIN 
+  EXCEPTION 
+    WHEN OTHERS THEN
+      null;
+  end;
+  BEGIN 
           dbms_cloud.Create_credential (credential_name => v_credential, 
                                         username => v_user,
                                         password => v_password); 
@@ -759,7 +964,7 @@ declare
   v_url         varchar2(4000);
   
 begin
-    v_url := 'https://objectstorage.'||v_region||'.oraclecloud.com/n/'||v_namespace||'/b/'||v_bucket||'/o/'||v_data_source;
+  v_url := 'https://objectstorage.'||v_region||'.oraclecloud.com/n/'||v_namespace||'/b/'||v_bucket||'/o/'||v_data_source;
   
   dbms_output.put_line(v_url);
   
@@ -911,11 +1116,11 @@ On notebook page, you can do selects and visualize your data
 ![oracle cloud site!](images/85.png "oracle Cloud site")
 
 ```
-%script
+%sql
 
 select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
 from admin.vendas v inner join admin.produtos p
-on v.id_produto = p.id_produto
+on v.produto_id = p.id_produto
 group by p.produto;
 
 ```
@@ -923,6 +1128,35 @@ group by p.produto;
 ![oracle cloud site!](images/86.png "oracle Cloud site")
 
 ![oracle cloud site!](images/87.png "oracle Cloud site")
+
+![oracle cloud site!](images/168.png "oracle Cloud site")
+
+Also you can execute via SQL mode, that can enables you to see tabular mode of those queries:
+
+```
+%script
+
+select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
+from admin.vendas v inner join admin.produtos p
+on v.produto_id = p.id_produto
+group by p.produto;
+
+```
+
+![oracle cloud site!](images/169.png "oracle Cloud site")
+
+And finally, you can add data from ATP :-:
+
+```
+%sql
+
+select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
+from admin.vendas v inner join admin.produtos p
+on v.produto_id = p.id_produto
+group by p.produto;
+
+```
+![oracle cloud site!](images/170.png "oracle Cloud site")
 
 
 <!-- blank line -->
