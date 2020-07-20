@@ -1145,18 +1145,6 @@ group by p.produto;
 
 ![oracle cloud site!](images/169.png "oracle Cloud site")
 
-#And finally, you can add data from ATP :-:
-
-#```
-#%sql
-
-#select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
-#from admin.vendas v inner join admin.produtos p
-#on v.produto_id = p.id_produto
-#group by p.produto;
-
-#```
-#![oracle cloud site!](images/170.png "oracle Cloud site")
 
 
 <!-- blank line -->
