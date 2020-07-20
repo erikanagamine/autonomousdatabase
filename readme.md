@@ -807,7 +807,7 @@ Check if your user has been created:
 
 ![oracle cloud site!](images/57.png "oracle Cloud site")
 
-PS: remember the user create and password. You will use this on step 9.
+PS: remember the user create and password. You will use this on step 10.
 
 <!-- blank line -->
 ----
@@ -1145,18 +1145,18 @@ group by p.produto;
 
 ![oracle cloud site!](images/169.png "oracle Cloud site")
 
-And finally, you can add data from ATP :-:
+#And finally, you can add data from ATP :-:
 
-```
-%sql
+#```
+#%sql
 
-select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
-from admin.vendas v inner join admin.produtos p
-on v.produto_id = p.id_produto
-group by p.produto;
+#select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
+#from admin.vendas v inner join admin.produtos p
+#on v.produto_id = p.id_produto
+#group by p.produto;
 
-```
-![oracle cloud site!](images/170.png "oracle Cloud site")
+#```
+#![oracle cloud site!](images/170.png "oracle Cloud site")
 
 
 <!-- blank line -->
@@ -1173,7 +1173,6 @@ Before create a dashboard you need to connect your Database instance to the OAC.
 
 ![oracle cloud site!](images/93.png "oracle Cloud site")
 
-PS. to connect into the
 
 And then click on "Open URL":
 
