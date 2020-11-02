@@ -310,6 +310,8 @@ When the process finish, the work ADW will change to green:
 
 In this section, we will provision the Oracle Analytics Cloud, aka. OAC.
 
+PS. You can download Oracle Analytics Desktop if you are executing in a always free tenant. <a href="https://www.oracle.com/solutions/business-analytics/analytics-desktop/oracle-analytics-desktop.html"> Click here </a> to download (necessary your OTN login)
+
 First, you need to provision the OAC. So on menu, click on "Solutions and Platform" -> Analytics -> Analytics Cloud:
 
 ![oracle cloud site!](images/88.png "oracle Cloud site")
@@ -1145,6 +1147,18 @@ group by p.produto;
 
 ![oracle cloud site!](images/169.png "oracle Cloud site")
 
+#And finally, you can add data from ATP :-:
+
+```
+%sql
+
+select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
+from admin.vendas v inner join admin.produtos p
+on v.produto_id = p.id_produto
+group by p.produto;
+
+```
+![oracle cloud site!](images/170.png "oracle Cloud site")
 
 
 <!-- blank line -->
