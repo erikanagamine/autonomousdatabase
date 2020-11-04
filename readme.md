@@ -701,15 +701,25 @@ END;
 Now you can create the database link to ADW. Most of those information you can check in the tnsnames.ora that you download previosly.
 
 ```
+
 BEGIN
-DBMS_CLOUD_ADMIN.CREATE_DATABASE_LINK(
-db_link_name => 'ADW_LINK',
-hostname => 'adb.<region>.oraclecloud.com',
-port => '1522',
-service_name => '<check on tnsnames>',
-ssl_server_cert_dn => '<check on tnsnames>',
-credential_name => 'DB_LINK_CRED_ADW',
-directory_name => 'DATA_PUMP_DIR');
+   BEGIN
+	   DBMS_CLOUD_ADMIN.DROP_DATABASE_LINK(db_link_name => 'ADW_LINK' );
+   EXCEPTION
+     WHEN OTHERS THEN
+       NULL;
+   END;
+
+  BEGIN
+    DBMS_CLOUD_ADMIN.CREATE_DATABASE_LINK(
+      db_link_name => 'ADW_LINK',
+      hostname => 'adb.<region>.oraclecloud.com',
+      port => '1522',
+      service_name => '<check on tnsnames>',
+      ssl_server_cert_dn => '<check on tnsnames>',
+      credential_name => 'DB_LINK_CRED_ADW',
+      directory_name => 'DATA_PUMP_DIR');
+  END;
 END;
 /
 
