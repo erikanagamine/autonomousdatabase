@@ -554,17 +554,15 @@ So, now you can explore more APEX and create more applications :)
 
 # 7. Loading data to ADW Using Database Actions: Database (ATP)
 
-At this time we will use the SQL Developer Web on ATP and ADW to connect those databases.
+At this time we will use the SQL Developer Web (via on Database Actions console) on ADW to connect ATP database.
 
-First we have to copy the wallet to object storage.
+First we have to copy the ATP wallet to object storage.
 
-On SQL Developer Web (including on Database Actions console), we will load data from files load into object storage. This activity needs an auth token.
+On SQL Developer Web, we will load data from files load into object storage. This activity needs an auth token.
 
 ## Generate a token to connect your database with files on bucket
 
 In this section we will generate a token to connect the files on object storage with autonomous database.
-
-PS. This is the same step for both databases: ATP and ADW.
 
 First access your user data, on the top of screen, click on profile and click on your user:
 
@@ -588,9 +586,9 @@ On ATP main page, click in "DB Connection":
 
 ![oracle cloud site!](images/152.png "oracle Cloud site")
 
-You need to select wallet type as "Regional Wallet" and then click in "Download Wallet":
+You need to select wallet type as "Instance Wallet" and then click in "Download Wallet":
 
-![oracle cloud site!](images/153.png "oracle Cloud site")
+![oracle cloud site!](images/218.png "oracle Cloud site")
 
 So, then insert a password to download the wallet and then click in download:
 
@@ -598,7 +596,7 @@ So, then insert a password to download the wallet and then click in download:
 
 Notice that wallet was a tnsnames, wallet, etc. files.
 
-Decompress the wallet file and get the "cwallet.sso":
+Decompress the wallet file and get the file called "cwallet.sso":
 
 ![oracle cloud site!](images/155.png "oracle Cloud site")
 
@@ -610,19 +608,36 @@ Now you have to insert the "cwallet.sso" to the bucket. The step by step how can
 
 # Create credential to load atp wallet to object storage
 
-First connect to the SQL Developer Web on ATP and click in "Tools":
+First connect to the SQL Developer Web on ADW and click in "Tools":
 
-![oracle cloud site!](images/147.png "oracle Cloud site")
+![oracle cloud site!](images/219.png "oracle Cloud site")
 
-Select the SQL Developer Web application:
+Select "Open Database Actions" tool:
 
-![oracle cloud site!](images/148.png "oracle Cloud site")
+![oracle cloud site!](images/220.png "oracle Cloud site")
 
-Insert your admin username and password and then click in "Sign In":
+Insert your admin username then click in "next":
 
-![oracle cloud site!](images/149.png "oracle Cloud site")
+![oracle cloud site!](images/221.png "oracle Cloud site")
 
-In this pages, the queries can be executed insert the code on (1) and running click in (2) that shows a tabular view or (3) in script view:
+Insert your admin password then click in "Sign in":
+
+![oracle cloud site!](images/222.png "oracle Cloud site")
+
+This is the database actions central console. We will click on SQL to create the credential. Credential is neeed for create a connection between Object Storage and Autonomous Database.
+
+![oracle cloud site!](images/223.png "oracle Cloud site")
+
+So, click in SQL:
+
+![oracle cloud site!](images/224.png "oracle Cloud site")
+
+In the first time that you access the sqldeveloper web console you will see some tips that inform you how to use the environment.
+
+![oracle cloud site!](images/225.png "oracle Cloud site")
+
+
+In this page, the queries can be executed insert the code on (1) and running click in (2) that shows a tabular view or (3) in script view:
 
 ![oracle cloud site!](images/150.png "oracle Cloud site")
 
@@ -644,7 +659,7 @@ BEGIN
   end;
   BEGIN 
           dbms_cloud.Create_credential (credential_name => v_credential, 
-                                        username => v_user,
+                                        username => v_user, 
                                         password => v_password); 
       END; 
 END;
@@ -655,7 +670,10 @@ If you execute sucessfully, you hit the message below:
 
 ![oracle cloud site!](images/151.png "oracle Cloud site")
 
-Now we can connect download the wallet to object storage:
+PS. If you receive the message "ORA-20000: ORA-29283: invalid file operation: nonexistent file or path [29434]..." regenerate your token.
+
+
+Now we can connect download the wallet from ATP to ADW:
 
 ```
 DECLARE
@@ -680,15 +698,19 @@ END;
 
 Create credential to access the database.
 
-Pay attention: in this step the credential was the database user / password, not the token:
+Warning: in this step the credential was the database user / password from source database ATP to connect ADW instance, not the token:
 
 ```
 
+DECLARE
+  v_db_usr           varchar2(30) :=    '<your db username >'; --database username, for example admin;
+  v_password_db_usr  varchar2(30) :=    '<your db Password>'; -- password for database connection
+  v_credential_db    varchar2(30) :=    '<your db credential name >'; -- database credential name, for example:DB_LINK_CRED_ATP
 BEGIN
 DBMS_CLOUD.CREATE_CREDENTIAL(
-credential_name => 'DB_LINK_CRED_ADW',
-username => 'ADMIN',
-password => '<Insert admin password here>'
+credential_name => v_credential_db,
+username => v_db_usr, 
+password => v_password_db_usr
 );
 END;
 /
@@ -697,13 +719,26 @@ END;
 
 ![oracle cloud site!](images/158.png "oracle Cloud site")
 
-Now you can create the database link to ADW. Most of those information you can check in the tnsnames.ora that you download previosly.
+Now you can create the database link to ATP. Most of those information you can check in the tnsnames.ora that you download previosly.
+
+PS: the tnsnames contain the information that you need below such as service name, ssl certificate and the region. Choose the best service:
+
+![oracle cloud site!](images/226.png "oracle Cloud site")
+
+Now, replace the information that you found on tnsnames on the block below:
 
 ```
-
+DECLARE
+  v_database_link   varchar2(30)  :='< your database link name > '; -- your database link name, for example: ATP_LINK
+  v_hostname        varchar2(30) :=    '<your region>'; --'insert here a region, exemple us-ashburn-1';
+  v_credential_db   varchar2(100) :=    '<your db credential name >'; -- database credential name, for example:DB_LINK_CRED_ATP
+  v_service_name    varchar2(100) := '<your service name from tnsnames>'; -- tnsnames service name, for example: t17xdtmmzvuylh3_atpft_low.adb.oraclecloud.com
+  v_cert_ssl        varchar2(1000) := '<certificate in tnsnames'; -- your certification in TNSNAMES: example CN=adwc.uscom-east-1.oraclecloud.com,OU=Oracle BMCS US,O=Oracle Corporation,L=Redwood City,ST=California,C=US
+  v_db_port         varchar2(10)   := '< tnsnames db port >'; -- your db port in tnsnames
+  
 BEGIN
    BEGIN
-	   DBMS_CLOUD_ADMIN.DROP_DATABASE_LINK(db_link_name => 'ADW_LINK' );
+	   DBMS_CLOUD_ADMIN.DROP_DATABASE_LINK(db_link_name => v_database_link );
    EXCEPTION
      WHEN OTHERS THEN
        NULL;
@@ -711,12 +746,12 @@ BEGIN
 
   BEGIN
     DBMS_CLOUD_ADMIN.CREATE_DATABASE_LINK(
-      db_link_name => 'ADW_LINK',
-      hostname => 'adb.<region>.oraclecloud.com',
-      port => '1522',
-      service_name => '<check on tnsnames>',
-      ssl_server_cert_dn => '<check on tnsnames>',
-      credential_name => 'DB_LINK_CRED_ADW',
+      db_link_name => v_database_link,
+      hostname => v_hostname,
+      port => v_db_port,
+      service_name =>   v_service_name,
+      ssl_server_cert_dn => v_cert_ssl,
+      credential_name => v_credential_db,
       directory_name => 'DATA_PUMP_DIR');
   END;
 END;
@@ -724,39 +759,22 @@ END;
 
 ```
 
-![oracle cloud site!](images/159.png "oracle Cloud site")
+![oracle cloud site!](images/227.png "oracle Cloud site")
 
 Execute a query to test the connection to ADW:
 
 ```
-select * from user_tables@ADW_LINK;
+select * from user_tables@ATP_LINK;
 
 ```
 
 ![oracle cloud site!](images/160.png "oracle Cloud site")
 
-Notice that at this time there is no table because on ADW we will load tables in next steps.
-
-
-Repeat the same steps for create 2 credentials (for object storage + Database user) and create database link in ADW to ATP, changing the names of database link:
-
-![oracle cloud site!](images/161.png "oracle Cloud site")
-
-![oracle cloud site!](images/162.png "oracle Cloud site")
-
-![oracle cloud site!](images/163.png "oracle Cloud site")
-
-![oracle cloud site!](images/164.png "oracle Cloud site")
-
-![oracle cloud site!](images/165.png "oracle Cloud site")
-
-![oracle cloud site!](images/166.png "oracle Cloud site")
-
 
 Execute a query to test the connection to ATP (observe that we insert the information about table load on APEX):
 
 ```
-select * from all_tables@ATP_LINK where table_name='CUSTOMERS' and owner='MYFTADBAPP';
+select * from all_tables@ATP_LINK where table_name='RESIDENT_REGISTRY' and owner='ADMIN';
 
 ```
 
@@ -776,7 +794,7 @@ Now you can access data between ATP and ADW!!!
 
 # 7. Loading data to ADW Using Database Actions: Data Lake (Object Storage)
 
-On SQL Developer Web, we will load data from files load into object storage. This activity needs an auth token.
+On SQL Developer Web, we will load data from files load into object storage. This activity needs an auth token. This auth token can be the same as used in the previous task.
 
 ## Generate a token to connect your database with files on bucket
 
