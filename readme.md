@@ -608,7 +608,7 @@ Now you have to insert the "cwallet.sso" to the bucket. The step by step how can
 
 # Create credential to load atp wallet to object storage
 
-First connect to the SQL Developer Web on ADW and click in "Tools":
+First connect to the Database actions on ADW and click in "Tools":
 
 ![oracle cloud site!](images/219.png "oracle Cloud site")
 
@@ -730,7 +730,7 @@ Now, replace the information that you found on tnsnames on the block below:
 ```
 DECLARE
   v_database_link   varchar2(30)  :='< your database link name > '; -- your database link name, for example: ATP_LINK
-  v_hostname        varchar2(30) :=    '<your region>'; --'insert here a region, exemple us-ashburn-1';
+  v_hostname        varchar2(1000) :=    '<your hostname>'; --'insert here your hostname, example adb.us-ashburn-1.oraclecloud.com';
   v_credential_db   varchar2(100) :=    '<your db credential name >'; -- database credential name, for example:DB_LINK_CRED_ATP
   v_service_name    varchar2(100) := '<your service name from tnsnames>'; -- tnsnames service name, for example: t17xdtmmzvuylh3_atpft_low.adb.oraclecloud.com
   v_cert_ssl        varchar2(1000) := '<certificate in tnsnames'; -- your certification in TNSNAMES: example CN=adwc.uscom-east-1.oraclecloud.com,OU=Oracle BMCS US,O=Oracle Corporation,L=Redwood City,ST=California,C=US
@@ -764,7 +764,7 @@ END;
 Execute a query to test the connection to ADW:
 
 ```
-select * from user_tables@ATP_LINK;
+select * from all_objects@ATP_LINK where owner='CITIZEN';
 
 ```
 
@@ -774,14 +774,16 @@ select * from user_tables@ATP_LINK;
 Execute a query to test the connection to ATP (observe that we insert the information about table load on APEX):
 
 ```
-select * from all_tables@ATP_LINK where table_name='RESIDENT_REGISTRY' and owner='ADMIN';
+select * from all_tables@ATP_LINK where table_name='RESIDENT_REGISTRY' and owner='CITIZEN';
 
 ```
 
 ![oracle cloud site!](images/166.png "oracle Cloud site")
 
 
-Now you can access data between ATP and ADW!!!
+Now you can access data between ATP in ADW!!!
+
+
 
 <!-- blank line -->
 ----
@@ -794,7 +796,7 @@ Now you can access data between ATP and ADW!!!
 
 # 7. Loading data to ADW Using Database Actions: Data Lake (Object Storage)
 
-On SQL Developer Web, we will load data from files load into object storage. This activity needs an auth token. This auth token can be the same as used in the previous task.
+On database actions, we will load data from files load into object storage. This activity needs an auth token. This auth token can be the same as used in the previous task.
 
 ## Generate a token to connect your database with files on bucket
 
@@ -818,38 +820,30 @@ PS: This token is generated once per time. If you lose this token, you need to c
 
 ## Upload bucket files on SQL Developer Web
 
-First we need to access the SQL Developer Web in ADW. So, to access this tool, go to menu -> Databases -> Autonomous Data Warehouse:
 
-![oracle cloud site!](images/41.png "oracle Cloud site")
+First we need to access the SQL Developer Web in ADW. So, to access this tool, go to menu -> Databases -> Autonomous Data Warehouse -> tools -> database actions
 
-Check if you are on the right compartment:
+First connect to the Database actions on ADW and click in "Tools":
 
-![oracle cloud site!](images/34.png "oracle Cloud site")
+![oracle cloud site!](images/219.png "oracle Cloud site")
 
-In the ADW page, select your ADW:
+Select "Open Database Actions" tool:
 
-![oracle cloud site!](images/49.png "oracle Cloud site")
+![oracle cloud site!](images/220.png "oracle Cloud site")
 
-Click on "tools" tab:
+Insert your admin username then click in "next":
 
-![oracle cloud site!](images/50.png "oracle Cloud site")
+![oracle cloud site!](images/221.png "oracle Cloud site")
 
-And then, click on SQL Developer Web:
+Insert your admin password then click in "Sign in":
 
-![oracle cloud site!](images/62.png "oracle Cloud site")
+![oracle cloud site!](images/222.png "oracle Cloud site")
 
-Under SQL Developer Web tab, insert your user as admin and password:
+This is the database actions central console. We will click on SQL to create the credential. Credential is neeed for create a connection between Object Storage and Autonomous Database.
 
-![oracle cloud site!](images/63.png "oracle Cloud site")
+![oracle cloud site!](images/223.png "oracle Cloud site")
 
-And then click in "Sign In":
-
-![oracle cloud site!](images/64.png "oracle Cloud site")
-
-Congratulations! You logged on SQL Developer!
-
-![oracle cloud site!](images/65.png "oracle Cloud site")
-
+****** aqui *****
 # Create credential to load data from object storage
 
 On the main page of SQL Developer Web, you can execute the queries:
