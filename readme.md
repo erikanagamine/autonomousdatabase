@@ -21,11 +21,11 @@ The main topics that we will execute during this time is:
 4. [ Provisioning Autonomous Data Warehouse (ADW) ](#4)
 5. [ Provisioning Oracle Analytics Cloud (OAC) ](#5)
 6. [ Create an application on APEX ](#6)
-7. [ Create an connection Between ATP and ADW ](#7)
-8. [ Oracle Machine Learning ](#8)
-9. [ SQL Developer Web ](#9)
+7. [ Loading data to ADW Using Database Actions: Database (ATP) ](#7)
+8. [ Loading data to ADW Using Database Actions: Data Lake (Object Storage) ](#9)
+9. [ Oracle Machine Learning ](#8)
 10. [ Know your data using OML Notebooks ](#10)
-11. [ Creating a dashboard on OAC ](#11)
+10. [ Creating a dashboard on OAC ](#11)
 
 <a name="1"></a>
 # 1. Accessing the Oracle Public Cloud
@@ -552,13 +552,13 @@ So, now you can explore more APEX and create more applications :)
 
 <a name="7"></a>
 
-# 7. Create a connection between ATP and ADW
+# 7. Loading data to ADW Using Database Actions: Database (ATP)
 
 At this time we will use the SQL Developer Web on ATP and ADW to connect those databases.
 
 First we have to copy the wallet to object storage.
 
-On SQL Developer Web, we will load data from files load into object storage. This activity needs an auth token.
+On SQL Developer Web (including on Database Actions console), we will load data from files load into object storage. This activity needs an auth token.
 
 ## Generate a token to connect your database with files on bucket
 
@@ -771,63 +771,10 @@ Now you can access data between ATP and ADW!!!
 
 [ Return to top ](#top)
 
-<a name="8"></a>
-# 8. Oracle Machine Learning
-
-The Oracle Machine Learning is an Apache Zeppelin notebook that can help you to know your data.
-
-At this time we will create an user for this tool and can be used in ADW or ATP.
-
-In this workshop, we will create on ADW. Select your ADW on menu page:
-
-![oracle cloud site!](images/41.png "oracle Cloud site")
-
-In the ADW page, select your ADW:
-
-![oracle cloud site!](images/49.png "oracle Cloud site")
-
-Click on "tools" tab:
-
-![oracle cloud site!](images/50.png "oracle Cloud site")
-
-Then click on "Oracle ML User Administration": 
-
-![oracle cloud site!](images/51.png "oracle Cloud site")
-
-On the ML administration page, insert admin as username and the password that you create for admin on ADW creation:
-
-![oracle cloud site!](images/52.png "oracle Cloud site")
-
-Then click in "Sign In":
-
-![oracle cloud site!](images/53.png "oracle Cloud site")
-
-On the ML user administration main page, click in "create" 
-
-![oracle cloud site!](images/54.png "oracle Cloud site")
-
-Insert data from your user:
-
-![oracle cloud site!](images/55.png "oracle Cloud site")
-
-Then click in create:
-
-![oracle cloud site!](images/56.png "oracle Cloud site")
-
-Check if your user has been created:
-
-![oracle cloud site!](images/57.png "oracle Cloud site")
-
-PS: remember the user create and password. You will use this on step 10.
-
-<!-- blank line -->
-----
-<!-- blank line -->
-
-[ Return to top ](#top)
 
 <a name="9"></a>
-# 9. SQL Developer Web
+
+# 7. Loading data to ADW Using Database Actions: Data Lake (Object Storage)
 
 On SQL Developer Web, we will load data from files load into object storage. This activity needs an auth token.
 
@@ -1075,8 +1022,65 @@ grant select on vendas to appdw;
 
 [ Return to top ](#top)
 
-<a name="10"></a>
-# 10. Know your data using OML Notebooks
+<a name="8"></a>
+
+# 8. Oracle Machine Learning
+
+The Oracle Machine Learning is an Apache Zeppelin notebook that can help you to know your data.
+
+At this time we will create an user for this tool and can be used in ADW or ATP.
+
+In this workshop, we will create on ADW. Select your ADW on menu page:
+
+![oracle cloud site!](images/41.png "oracle Cloud site")
+
+In the ADW page, select your ADW:
+
+![oracle cloud site!](images/49.png "oracle Cloud site")
+
+Click on "tools" tab:
+
+![oracle cloud site!](images/50.png "oracle Cloud site")
+
+Then click on "Oracle ML User Administration": 
+
+![oracle cloud site!](images/51.png "oracle Cloud site")
+
+On the ML administration page, insert admin as username and the password that you create for admin on ADW creation:
+
+![oracle cloud site!](images/52.png "oracle Cloud site")
+
+Then click in "Sign In":
+
+![oracle cloud site!](images/53.png "oracle Cloud site")
+
+On the ML user administration main page, click in "create" 
+
+![oracle cloud site!](images/54.png "oracle Cloud site")
+
+Insert data from your user:
+
+![oracle cloud site!](images/55.png "oracle Cloud site")
+
+Then click in create:
+
+![oracle cloud site!](images/56.png "oracle Cloud site")
+
+Check if your user has been created:
+
+![oracle cloud site!](images/57.png "oracle Cloud site")
+
+PS: remember the user create and password. You will use this on step 10.
+
+<!-- blank line -->
+----
+<!-- blank line -->
+
+[ Return to top ](#top)
+
+<a name="9"></a>
+
+# 9. Know your data using OML Notebooks
 
 If you need to see your data in another visualization using notebooks, you can use Oracle Machine Learning.
 
@@ -1177,8 +1181,9 @@ group by p.produto;
 [ Return to top ](#top)
 
 
-<a name="11"></a>
-# 11. Creating a dashboard on OAC
+<a name="10"></a>
+
+# 10. Creating a dashboard on OAC
 
 Before create a dashboard you need to connect your Database instance to the OAC. To connect your instance in OAC, go to OAC Page:
 
