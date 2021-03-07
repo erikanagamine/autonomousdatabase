@@ -7,7 +7,7 @@
 
 # Autonomous Database
 
-Oracle Autonomous database is an inovative platform for data, including transaction and analytics workloads.
+Oracle Autonomous database is an inovative platform for data including transactional data, relational, nosql and analytical.
 
 During this time, we will construct a integrated data platform with a transaction application and analytics application.
 
@@ -39,29 +39,29 @@ On Oracle website, go to "View accounts":
 
 ![oracle site!](images/03.png "oracle site")
 
-On "View Accounts" click in "Sign in to cloud":
+On "View Accounts" click in "Cloud Account" -> "Sign in to cloud":
 
-![oracle site!](images/04.png "oracle site")
+![oracle site!](images/170.png "oracle site")
 
-![oracle site!](images/05.png "oracle site")
+![oracle site!](images/171.png "oracle site")
 
 On "Sign in" page, put the information about your cloud account:
 
-![oracle site!](images/06.png "oracle site")
+![oracle site!](images/172.png "oracle site")
 
-![oracle site!](images/07.png "oracle site")
+Insert your tenant name here:
+
+![oracle site!](images/173.png "oracle site")
 
 Then click in next:
 
-![oracle site!](images/08.png "oracle site")
-
-![oracle site!](images/09.png "oracle site")
+![oracle site!](images/174.png "oracle site")
 
 At this moment you need to inform your account and password:
 
-![oracle site!](images/10.png "oracle site")
+![oracle site!](images/175.png "oracle site")
 
-![oracle site!](images/11.png "oracle site")
+![oracle site!](images/176.png "oracle site")
 
 Then click in next:
 
@@ -147,9 +147,16 @@ Click on your created bucket:
 
 >> Download files for this workshop:
 
->> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/vendas.csv" target="_vendas">vendas.csv</a>
+>> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/geonames.json" target="_geonames">geonames.json</a>
 
->> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/dimensao_produto.csv" target="_produto">dimensao_produto.csv</a>
+>> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/Global_Landslide_Catalog_Export.csv" target="_landslide">Global_Landslide_Catalog_Export.csv</a>
+
+
+PS: file Sources - Reference:
+<a href="https://catalog.data.gov/dataset/global-landslide-catalog-export" target="_vendas">Nasa - Global Landslide</a>
+
+<a href="https://www.geonames.org/" target="_vendas">Geonames.org</a>
+
 
 On your bucket page, click in "Upload Objects":
 
@@ -159,13 +166,13 @@ On upload page, select the folder or drag and drop the downloaded files:
 
 ![oracle cloud site!](images/29.png "oracle Cloud site")
 
-Then click ok:
+Then click close:
 
-![oracle cloud site!](images/30.png "oracle Cloud site")
+![oracle cloud site!](images/177.png "oracle Cloud site")
 
 Check if files was download correctly:
 
-![oracle cloud site!](images/31.png "oracle Cloud site")
+![oracle cloud site!](images/178.png "oracle Cloud site")
 
 
 <!-- blank line -->
