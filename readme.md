@@ -201,16 +201,16 @@ Then Click in "Create Autonomous Database"
 
 On the creation page:
 
-![oracle cloud site!](images/35.png "oracle Cloud site")
+![oracle cloud site!](images/179.png "oracle Cloud site")
 
 Check if the follow information was filled:
 - Compartment: <check if is correct>
-- Display name: <put an name - Example: atp>
-- Database name: <put an name - Example: atp>
+- Display name: <put an name - Example: atpft>
+- Database name: <put an name - Example: atpft>
 - Choose the workload type: in this case Transaction Processing
 - Choose deployment type: Shared infrasctructure
 
-![oracle cloud site!](images/36.png "oracle Cloud site")
+![oracle cloud site!](images/180.png "oracle Cloud site")
 
 Continue choosing this options:
 - No Always Free option
@@ -228,11 +228,11 @@ Options that you need to choose:
 
 And then click in "Create autonomous database":
 
-![oracle cloud site!](images/38.png "oracle Cloud site")
+![oracle cloud site!](images/181.png "oracle Cloud site")
 
 During creation process time, you will see the amber color of word "ATP":
 
-![oracle cloud site!](images/39.png "oracle Cloud site")
+![oracle cloud site!](images/186.png "oracle Cloud site")
 
 When the process finish, the work ATP will change to green:
 
@@ -265,16 +265,16 @@ Then Click in "Create Autonomous Database"
 
 On the creation page:
 
-![oracle cloud site!](images/42.png "oracle Cloud site")
+![oracle cloud site!](images/182.png "oracle Cloud site")
 
 Check if the follow information was filled:
 - Compartment: <check if is correct>
-- Display name: <put an name - Example: adw1>
-- Database name: <put an name - Example: adw1>
+- Display name: <put an name - Example: adwft>
+- Database name: <put an name - Example: adwft>
 - Choose the workload type: in this case Data Warehouse
 - Choose deployment type: Shared infrasctructure
 
-![oracle cloud site!](images/43.png "oracle Cloud site")
+![oracle cloud site!](images/183.png "oracle Cloud site")
 
 Continue choosing this options:
 - No Always Free option
@@ -284,7 +284,7 @@ Continue choosing this options:
 - No auto scaling
 - Choose the admin Password that you want
 
-![oracle cloud site!](images/44.png "oracle Cloud site")
+![oracle cloud site!](images/184.png "oracle Cloud site")
 
 Options that you need to choose:
 - Allow Secure access from everywhere
@@ -292,13 +292,12 @@ Options that you need to choose:
 
 And then click in "Create autonomous database":
 
-![oracle cloud site!](images/45.png "oracle Cloud site")
+![oracle cloud site!](images/185.png "oracle Cloud site")
 
-![oracle cloud site!](images/46.png "oracle Cloud site")
 
 During creation process time, you will see the amber color of word "ADW":
 
-![oracle cloud site!](images/47.png "oracle Cloud site")
+![oracle cloud site!](images/187.png "oracle Cloud site")
 
 When the process finish, the work ADW will change to green:
 
@@ -323,7 +322,7 @@ First, you need to provision the OAC. So on menu, click on "Solutions and Platfo
 
 ![oracle cloud site!](images/88.png "oracle Cloud site")
 
-Make sure that you have select the right compartment (on the left), and then click on "
+Make sure that you have select the right compartment (on the left), and then click on "Create Instance"
 
 ![oracle cloud site!](images/89.png "oracle Cloud site")
 
@@ -331,12 +330,15 @@ Input the follow information on the analytics:
 - INSTANCE NAME: oac
 - DESCRIPTION: My OAC instance
 - FEATURE SET: Enterprise Analytics
-- CAPACITY: OCPU - 2
-- LICENSE TYPE: BYOL (MY ORGANIZATION ALREADY OWNS ORACLE MIDDLEWARE SOFTWARE LICENSES. BRING MY EXISTING MIDDLEWARE SOFTWARE LICENSE TO THE ANALYTICS CLOUD)
+- CAPACITY: OCPU - 1
+- LICENSING: BYOL
+
 
 Then click in "Create".
 
-![oracle cloud site!](images/90.png "oracle Cloud site")
+![oracle cloud site!](images/188.png "oracle Cloud site")
+
+![oracle cloud site!](images/189.png "oracle Cloud site")
 
 After click in create, the OAC will be provisioned:
 
@@ -363,7 +365,7 @@ Before start this step, download this file:
 
 >> Download file to proceed in this step:
 
->> <a href="https://github.com/erikanagamine/autonomousdatabase/raw/master/files/clientes.csv" target="_clientes">clientes.csv</a>
+>> <a href="https://raw.githubusercontent.com/erikanagamine/autonomousdatabase/master/files/citizen.csv" target="_citizen">clientes.csv</a>
 
 
 In this workshop, we will use the APEX on ATP. So, in the main page of ATP:
