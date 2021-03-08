@@ -701,7 +701,7 @@ Warning: in this step the credential was the database user / password from sourc
 ```
 
 DECLARE
-  v_db_usr           varchar2(30) :=    '<your db username >'; --database username, for example ADMIN;
+  v_db_usr           varchar2(30) :=    '<your db username >'; --database username, for example ADMIN
   v_password_db_usr  varchar2(30) :=    '<your db Password>'; -- password for database connection
   v_credential_db    varchar2(30) :=    '<your db credential name >'; -- database credential name, for example:DB_LINK_CRED_ATP
 BEGIN
@@ -913,6 +913,10 @@ Note that you found the json file that you store on the object storage. So click
 
 ![oracle cloud site!](images/235.png "oracle Cloud site")
 
+Edit the job (in pencil icon) before click in play and modify all fields to varchar2(4000) as image below:
+
+![oracle cloud site!](images/255.png "oracle Cloud site")
+
 Click in play:
 
 ![oracle cloud site!](images/235.png "oracle Cloud site")
@@ -920,6 +924,7 @@ Click in play:
 and ok to execute the job:
 
 ![oracle cloud site!](images/236.png "oracle Cloud site")
+
 
 Now check the progress of job
 
