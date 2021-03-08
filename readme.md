@@ -701,7 +701,7 @@ Warning: in this step the credential was the database user / password from sourc
 ```
 
 DECLARE
-  v_db_usr           varchar2(30) :=    '<your db username >'; --database username, for example admin;
+  v_db_usr           varchar2(30) :=    '<your db username >'; --database username, for example ADMIN;
   v_password_db_usr  varchar2(30) :=    '<your db Password>'; -- password for database connection
   v_credential_db    varchar2(30) :=    '<your db credential name >'; -- database credential name, for example:DB_LINK_CRED_ATP
 BEGIN
@@ -738,7 +738,7 @@ DECLARE
   v_hostname        varchar2(1000) :=    '<your hostname>'; --'insert here your hostname, example adb.us-ashburn-1.oraclecloud.com';
   v_credential_db   varchar2(100) :=    '<your db credential name >'; -- database credential name, for example:DB_LINK_CRED_ATP
   v_service_name    varchar2(100) := '<your service name from tnsnames>'; -- tnsnames service name, for example: t17xdtmmzvuylh3_atpft_low.adb.oraclecloud.com
-  v_cert_ssl        varchar2(1000) := '<certificate in tnsnames'; -- your certification in TNSNAMES: example CN=adwc.uscom-east-1.oraclecloud.com,OU=Oracle BMCS US,O=Oracle Corporation,L=Redwood City,ST=California,C=US
+  v_cert_ssl        varchar2(1000) := '<certificate in tnsnames>'; -- your certification in TNSNAMES: example CN=adwc.uscom-east-1.oraclecloud.com,OU=Oracle BMCS US,O=Oracle Corporation,L=Redwood City,ST=California,C=US
   v_db_port         varchar2(10)   := '< tnsnames db port >'; -- your db port in tnsnames
   
 BEGIN
