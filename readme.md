@@ -799,7 +799,7 @@ Now you can access data between ATP in ADW!!!
 
 <a name="9"></a>
 
-# 7. Loading data to ADW Using Database Actions: Data Lake (Object Storage)
+# 8. Loading data to ADW Using Database Actions: Data Lake (Object Storage)
 
 On database actions, we will load data from files load into object storage. This activity needs an auth token. This auth token can be the same as used in the previous task.
 
@@ -968,6 +968,19 @@ Now you can see the dataset table load in the sql developer web option:
 
 ![oracle cloud site!](images/248.png "oracle Cloud site")
 
+![oracle cloud site!](images/249.png "oracle Cloud site")
+
+Grant tables and create synonym to public:
+
+```
+grant select on GLOBAL_LANDSLIDE_CATALOG_EXPORT to public;
+grant select on geonames to public;
+
+create public synonym GLOBAL_LANDSLIDE_CATALOG_EXPORT for admin.GLOBAL_LANDSLIDE_CATALOG_EXPORT;
+create public synonym geonames for admin.geonames;
+
+```
+
 
 <!-- blank line -->
 ----
@@ -977,7 +990,7 @@ Now you can see the dataset table load in the sql developer web option:
 
 <a name="8"></a>
 
-# 8. Oracle Machine Learning
+# 9. Oracle Machine Learning
 
 The Oracle Machine Learning is an Apache Zeppelin notebook that can help you to know your data.
 
@@ -1033,7 +1046,7 @@ PS: remember the user create and password. You will use this on step 10.
 
 <a name="9"></a>
 
-# 9. Know your data using OML Notebooks
+# 10. Know your data using OML Notebooks
 
 If you need to see your data in another visualization using notebooks, you can use Oracle Machine Learning.
 
@@ -1077,54 +1090,39 @@ On creation page, insert a name for your notebook, then click ok:
 
 ![oracle cloud site!](images/83.png "oracle Cloud site")
 
-On notebook page, you can do selects and visualize your data
+On notebook page, you can explore more your data:
 
 ![oracle cloud site!](images/84.png "oracle Cloud site")
 
-![oracle cloud site!](images/85.png "oracle Cloud site")
-
-```
-%sql
-
-select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
-from admin.vendas v inner join admin.produtos p
-on v.produto_id = p.id_produto
-group by p.produto;
-
-```
-
-![oracle cloud site!](images/86.png "oracle Cloud site")
-
-![oracle cloud site!](images/87.png "oracle Cloud site")
-
-![oracle cloud site!](images/168.png "oracle Cloud site")
-
-Also you can execute via SQL mode, that can enables you to see tabular mode of those queries:
-
+Execute this in script mode:
 ```
 %script
 
-select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
-from admin.vendas v inner join admin.produtos p
-on v.produto_id = p.id_produto
-group by p.produto;
+select * from geonames
 
 ```
 
-![oracle cloud site!](images/169.png "oracle Cloud site")
+![oracle cloud site!](images/250.png "oracle Cloud site")
 
-#And finally, you can add data from ATP :-:
+
+Execute this select in sql mode:
 
 ```
 %sql
 
-select p.produto PRODUTO, sum(v.valor) VALOR_TOTAL, sum(v.quantidade) QUANTIDADE
-from admin.vendas v inner join admin.produtos p
-on v.produto_id = p.id_produto
-group by p.produto;
+select * from GLOBAL_LANDSLIDE_CATALOG_EXPORT
 
 ```
-![oracle cloud site!](images/170.png "oracle Cloud site")
+![oracle cloud site!](images/251.png "oracle Cloud site")
+
+Notice that we have more options to visualize data in SQL:
+
+![oracle cloud site!](images/252.png "oracle Cloud site")
+
+Tip: there is a lots of examples of using OML. Please check in the example page inside the notebook. Also you can use python:
+
+![oracle cloud site!](images/253.png "oracle Cloud site")
+
 
 
 <!-- blank line -->
