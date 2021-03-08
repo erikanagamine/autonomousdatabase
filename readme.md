@@ -706,7 +706,7 @@ DECLARE
   v_credential_db    varchar2(30) :=    '<your db credential name >'; -- database credential name, for example:DB_LINK_CRED_ATP
 BEGIN
   BEGIN
-    dbms_cloud.Drop_credential(credential_name => credential_name => v_credential_db); 
+    dbms_cloud.Drop_credential(credential_name => v_credential_db); 
   EXCEPTION 
     WHEN OTHERS THEN
       null;
