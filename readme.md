@@ -24,7 +24,7 @@ The main topics that we will execute during this time is:
 7. [ Loading data to ADW Using Database Actions: Database (ATP) ](#7)
 8. [ Loading data to ADW Using Database Actions: Data Lake (Object Storage) ](#8)
 9. [ Oracle Machine Learning ](#9)
-10. [ Get insights in your data in OML Notebooks ](#10)
+10. [ Get insights with your data in OML Notebooks ](#10)
 11. [ Creating a dashboard on OAC ](#11)
 
 <a name="1"></a>
@@ -1046,7 +1046,7 @@ PS: remember the user create and password. You will use this on step 10.
 
 <a name="10"></a>
 
-# 10. Get insights in your data in OML Notebooks
+# 10. Get insights with your data in OML Notebooks
 
 If you need to see your data in another visualization using notebooks, you can use Oracle Machine Learning.
 
