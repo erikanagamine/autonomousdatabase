@@ -604,9 +604,7 @@ Now you have to insert the "cwallet.sso" to the bucket. The step by step how can
 
 ![oracle cloud site!](images/156.png "oracle Cloud site")
 
-
-
-# Create credential to load atp wallet to object storage
+# Create credential to load atp wallet to object storage in OCI
 
 First connect to the Database actions on ADW and click in "Tools":
 
@@ -647,7 +645,7 @@ Now you can edit and copy the information below with your information and execut
 ```
 -- Create credential
 DECLARE 
-    v_credential VARCHAR2(100) := 'OBJ_WALLET_DATA'; 
+    v_credential VARCHAR2(100) := 'OCI_CLOUD_STORAGE_CRED'; -- choose the name of your preference
     v_user       VARCHAR2(100) := '<insert your user>'; -- insert here your user, on menu Identity -> Users -> User Details or profile (on the top of your page) -> username (example: oracleidentitycloudservice/myuser@mycompany.com)'; 
     v_password   VARCHAR2(100) := '<insert your token>'; -- on your user page, click in Auth Tokens -> generate Token example: 'h<fMHJiGKVvvgl2uz0[Q';
 BEGIN 
@@ -680,7 +678,7 @@ DECLARE
   v_region      varchar2(30) :=    '<your region>'; --'insert here a region, exemple us-ashburn-1';
   v_namespace   varchar2(30) :=    '<your namespace>'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
   v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemple: Workshop_Object';
-  v_credential  VARCHAR2(100) := 'OBJ_WALLET_DATA';
+  v_credential  VARCHAR2(100) := 'OCI_CLOUD_STORAGE_CRED';
   v_url         varchar2(4000);
 
 BEGIN
@@ -696,7 +694,7 @@ END;
 ```
 ![oracle cloud site!](images/157.png "oracle Cloud site")
 
-Create credential to access the database.
+# Create credential to access the database via Database Link (DBlink)
 
 Warning: in this step the credential was the database user / password from source database ATP to connect ADW instance, not the token:
 
@@ -707,6 +705,13 @@ DECLARE
   v_password_db_usr  varchar2(30) :=    '<your db Password>'; -- password for database connection
   v_credential_db    varchar2(30) :=    '<your db credential name >'; -- database credential name, for example:DB_LINK_CRED_ATP
 BEGIN
+  BEGIN
+    dbms_cloud.Drop_credential(credential_name => credential_name => v_credential_db); 
+  EXCEPTION 
+    WHEN OTHERS THEN
+      null;
+  end;
+
 DBMS_CLOUD.CREATE_CREDENTIAL(
 credential_name => v_credential_db,
 username => v_db_usr, 
@@ -798,6 +803,8 @@ Now you can access data between ATP in ADW!!!
 
 On database actions, we will load data from files load into object storage. This activity needs an auth token. This auth token can be the same as used in the previous task.
 
+You need to use your ADW for this steps.
+
 ## Generate a token to connect your database with files on bucket
 
 In this section we will generate a token to connect the files on object storage with autonomous database. 
@@ -843,189 +850,123 @@ This is the database actions central console. We will click on SQL to create the
 
 ![oracle cloud site!](images/223.png "oracle Cloud site")
 
-****** aqui *****
 # Create credential to load data from object storage
 
-On the main page of SQL Developer Web, you can execute the queries:
+This step is the same of [ Step 7: connect database via Dblink ](#7).
 
-![oracle cloud site!](images/67.png "oracle Cloud site")
+If you already did the token generation + create OCI CLOUD Storage Credential, you don't need to do it again.
 
-Now you can edit and copy the information below with your information and execute on SQL Developer Web, using "Run Script" button or F5:
+So, go ahead with next steps.
 
-```
--- Create credential
-DECLARE 
-    v_credential VARCHAR2(100) := 'OBJ_STORAGE_DATA'; 
-    v_user       VARCHAR2(100) := '<insert your user>'; -- insert here your user, on menu Identity -> Users -> User Details or profile (on the top of your page) -> username (example: oracleidentitycloudservice/myuser@mycompany.com)'; 
-    v_password   VARCHAR2(100) := '<insert your token>'; -- on your user page, click in Auth Tokens -> generate Token example: 'h<fMHJiGKVvvgl2uz0[Q';
-BEGIN 
-  BEGIN
-    dbms_cloud.Drop_credential(credential_name => v_credential); 
-  EXCEPTION 
-    WHEN OTHERS THEN
-      null;
-  end;
-  BEGIN 
-          dbms_cloud.Create_credential (credential_name => v_credential, 
-                                        username => v_user,
-                                        password => v_password); 
-      END; 
-END;
-/ 
-```
+# Load data via database actions
 
-If you execute sucessfully, you hit the message below:
+![oracle cloud site!](images/228.png "oracle Cloud site")
 
-![oracle cloud site!](images/68.png "oracle Cloud site")
+On database actions central console click in "Data Load":
 
-Then Create table called "vendas":
+![oracle cloud site!](images/229.png "oracle Cloud site")
 
-```
-  begin
-    begin 
-      execute immediate 'drop table vendas';
-    exception
-      when others then
-        null;
-    end;
-      
-    execute immediate 'CREATE TABLE ADMIN.VENDAS 
-    ( 
-     PRODUTOS          VARCHAR2(4000) , 
-     CLIENTE_ID        VARCHAR2(4000) , 
-     ID_PEDIDO         VARCHAR2(4000) , 
-     DATA_DO_PEDIDO    VARCHAR2(4000) , 
-     PRODUTO_ID        VARCHAR2(4000) , 
-     PRODUTO_CATEGORIA VARCHAR2(4000) , 
-     PRODUTO           VARCHAR2(4000) , 
-     VALOR             VARCHAR2(4000) , 
-     QUANTIDADE        VARCHAR2(4000) , 
-     VALOR_TOTAL       VARCHAR2(4000) , 
-     CANAL_DE_VENDA    VARCHAR2(4000) , 
-     UNIDADE           VARCHAR2(4000) , 
-     LATITUDE          VARCHAR2(4000) , 
-     LONGITUDE         VARCHAR2(4000) 
-    )';
-   end;
-  /
+On data load page you have two methods get the data:
+- Load data you will load the data to autonomous. This is good if you have a frequency data access in the autonomous.
+- Link Data: This option is for data that you need to access and doesn't store in autonomous.
 
-```
+Also you have this 3 methods to receive source data on autonomous:
+- local file: if you need to load a file from your computer, you choose this option
+- database: if you need to load data from another database to autonomous, you can choose this option.
+- Cloud Storage: if you need to load data from a cloud storage (OCI object storage you choose this option)
 
-![oracle cloud site!](images/69.png "oracle Cloud site")
+![oracle cloud site!](images/230.png "oracle Cloud site")
 
-Execute the query to make sure that table was sucessfully created:
+In this time we will use files that we store on Object storage in the step 2 [ Return to step 2 ](#2) :
+- geonames.json: we will access via link data option
+- Global_Landslide_Catalog_Export.csv: we wiil load data
 
-```
-  select * from vendas;
+# Load data from object storage into autonomous database via Database Actions as link data
 
-```
+At this time we will load geonames.json file stored on Object Storage via link data option. So in the Data load page select link data -> cloud storage and then next.
 
-Now load data to table:
+![oracle cloud site!](images/231.png "oracle Cloud site")
 
+In the link cloud object page you will see a message to setup cloud storage. So, click in OK
 
-```
-declare
-  v_region      varchar2(30) :=    '<your region>'; --'insert here a region, exemple us-ashburn-1';
-  v_namespace   varchar2(30) :=    '<your namespace>'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
-  v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemple: Workshop_Object';
-  v_table_name  varchar2(30) := 'VENDAS';
-  v_data_source varchar2(100) := 'vendas.csv';
-  v_credential  VARCHAR2(100) := 'OBJ_STORAGE_DATA';
-  v_url         varchar2(4000);
-  
-begin
-  v_url := 'https://objectstorage.'||v_region||'.oraclecloud.com/n/'||v_namespace||'/b/'||v_bucket||'/o/'||v_data_source;
-  
-  dbms_output.put_line(v_url);
-  
-   DBMS_CLOUD.COPY_DATA(
-    table_name => v_table_name,
-    credential_name => v_credential,
-    file_uri_list =>v_url,
-format => json_object('ignoremissingcolumns' value 'true','removequotes' value 'true', 'delimiter' value ',', 'skipheaders' value '0', 'dateformat' value 'MM/DD/YYYY')
-);
-END;
-/
+![oracle cloud site!](images/232.png "oracle Cloud site")
+
+On setup cloud storage you will see this page:
+
+![oracle cloud site!](images/233.png "oracle Cloud site")
+
+So add the follow information to load the data:
+- name: name of job
+- Cloud Storage: Oracle
+- URI+Bucket: your cloud storage, example: https://objectstorage.us-ashburn-1.oraclecloud.com/n/<namespace>/b/<name of bucket>/o/ -- you can get this information on bucket page
+- Credential: select credential -> choose the credential that you insert in the activities before. 
+
+and then click in test:
+
+![oracle cloud site!](images/234.png "oracle Cloud site")
+
+click in create:
+
+![oracle cloud site!](images/234.png "oracle Cloud site")
+
+Note that you found the json file that you store on the object storage. So click in the file and drag to the other screen:
+
+![oracle cloud site!](images/235.png "oracle Cloud site")
+
+Click in play:
+
+![oracle cloud site!](images/235.png "oracle Cloud site")
+
+and ok to execute the job:
+
+![oracle cloud site!](images/236.png "oracle Cloud site")
+
+Now check the progress of job
+
+![oracle cloud site!](images/237.png "oracle Cloud site")
+
+![oracle cloud site!](images/238.png "oracle Cloud site")
+
+![oracle cloud site!](images/239.png "oracle Cloud site")
+
+If everything run sucessfully, you will see the check in the job as below:
+
+![oracle cloud site!](images/240.png "oracle Cloud site")
+
+Now you can see the view geodata in the sql developer web option:
+
+![oracle cloud site!](images/241.png "oracle Cloud site")
 
 
-```
+# Load data from object storage to autonomous database via Database Actions as load data to autonomous storage
 
-![oracle cloud site!](images/70.png "oracle Cloud site")
+To load data from object storage to autonomous in Database Actions, click in load data -> cloud storage and then next:
 
+![oracle cloud site!](images/242.png "oracle Cloud site")
 
-# PS. If you found some error in this execution, you can query the tables:
+Drag the landslide file:
 
-- copy$<number_of_your_execution>_log : all log information about execution (example: select * from copy$1_log )
-- copy$<number_of_your_execution>_bad : all bad information during import (example: select * from copy$1_bad )
+![oracle cloud site!](images/243.png "oracle Cloud site")
 
-Also, check if the data on table was sucessfully loaded:
+And then click in play:
 
+![oracle cloud site!](images/244.png "oracle Cloud site")
 
-```
-select * from vendas;
+click in ok to run the job:
 
-```
+![oracle cloud site!](images/245.png "oracle Cloud site")
 
-![oracle cloud site!](images/73.png "oracle Cloud site")
+Check the progress of job (it will take a minute to load):
 
+![oracle cloud site!](images/246.png "oracle Cloud site")
 
-```
-declare
-  v_region      varchar2(30) :=    '<your region>'; --'insert here a region, exemple us-ashburn-1';
-  v_namespace   varchar2(30) :=    '<your namespace>'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
-  v_bucket      varchar2(30) :=    '<your bucket>'; --'console cloud-> Object Storage -> Bucket Details exemple: Workshop_Object';
-  v_table_name  varchar2(30) := 'PRODUTOS';
-  v_data_source varchar2(100) := 'dimensao_produto.csv';
-  v_credential  VARCHAR2(100) := 'OBJ_STORAGE_DATA';
-  v_url        varchar2(4000);
-begin
-   Begin
-     execute immediate 'drop table '|| v_table_name;
-   exception
-     when others then
-       null;
-   end;
+If everything is good on running job, you see the message below:
 
-   v_url := 'https://objectstorage.'||v_region||'.oraclecloud.com/n/'||v_namespace||'/b/'||v_bucket||'/o/'||v_data_source;
-  
-   dbms_output.put_line(v_url);
-  
-   DBMS_CLOUD.CREATE_EXTERNAL_TABLE(
-    table_name => v_table_name,
-    credential_name => v_credential,
-    file_uri_list => v_url,
-    format => json_object('delimiter' value ',','skipheaders' value '0'),
-    column_list => 'ID_PRODUTO VARCHAR2(4000),
-    CATEGORIA_PRODUTO VARCHAR2(4000),
-    PRODUTO VARCHAR2(4000)'
- );
-END;
-/
+![oracle cloud site!](images/247.png "oracle Cloud site")
 
-```
+Now you can see the dataset table load in the sql developer web option:
 
-![oracle cloud site!](images/71.png "oracle Cloud site")
-
-
-Check if your data have been loaded on tables:
-
-```
-select * from produtos;
-
-```
-
-![oracle cloud site!](images/72.png "oracle Cloud site")
-
-
-PS.: For next steps, if you create a different user for Oracle Machine Learning, you need to give the permissions to read tables in another owner:
-
-```
-grant select on produtos to appdw;
-grant select on vendas to appdw;
-
-```
-
-![oracle cloud site!](images/74.png "oracle Cloud site")
+![oracle cloud site!](images/248.png "oracle Cloud site")
 
 
 <!-- blank line -->
