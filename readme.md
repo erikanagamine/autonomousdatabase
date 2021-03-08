@@ -1119,6 +1119,8 @@ Notice that we have more options to visualize data in SQL:
 
 ![oracle cloud site!](images/252.png "oracle Cloud site")
 
+![oracle cloud site!](images/254.png "oracle Cloud site")
+
 Tip: there is a lots of examples of using OML. Please check in the example page inside the notebook. Also you can use python:
 
 ![oracle cloud site!](images/253.png "oracle Cloud site")
