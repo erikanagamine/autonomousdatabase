@@ -189,7 +189,7 @@ In this session we will provision an Autonomous Transaction Processing Database.
 
 So, to start the provision, go to menu -> Databases -> Autonomous Transaction Processing:
 
-![oracle cloud site!](images/32.png "oracle Cloud site")
+![oracle cloud site!](images/262.png "oracle Cloud site")
 
 Check if you are on the right compartment:
 
