@@ -129,9 +129,9 @@ Then click in "Create bucket":
 
 On the bucket creation page, insert the name of desired bucket:
 
-![oracle cloud site!](images/23.png "oracle Cloud site")
+![oracle cloud site!](images/260.png "oracle Cloud site")
 
-![oracle cloud site!](images/24.png "oracle Cloud site")
+![oracle cloud site!](images/261.png "oracle Cloud site")
 
 And then click "create bucket":
 
