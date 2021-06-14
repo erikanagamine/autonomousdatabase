@@ -338,8 +338,6 @@ Then click in "Create".
 
 ![oracle cloud site!](images/266.png "oracle Cloud site")
 
-![oracle cloud site!](images/189.png "oracle Cloud site")
-
 After click in create, the OAC will be provisioned:
 
 ![oracle cloud site!](images/91.png "oracle Cloud site")
