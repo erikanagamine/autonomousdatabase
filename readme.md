@@ -320,7 +320,7 @@ PS. You can download Oracle Analytics Desktop if you are executing in a always f
 
 First, you need to provision the OAC. So on menu, click on "Solutions and Platform" -> Analytics -> Analytics Cloud:
 
-![oracle cloud site!](images/88.png "oracle Cloud site")
+![oracle cloud site!](images/265.png "oracle Cloud site")
 
 Make sure that you have select the right compartment (on the left), and then click on "Create Instance"
 
