@@ -97,7 +97,7 @@ And you have your profile configuration on the top right of main page
 ## Create a compartment
 First you need to create the compartment. To create your compartment, click on menu -> identity -> Compartment
 
-![oracle cloud site!](images/17.png "oracle Cloud site")
+![oracle cloud site!](images/258.png "oracle Cloud site")
 
 Then click in create compartment:
 
