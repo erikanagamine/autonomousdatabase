@@ -117,7 +117,7 @@ We will create a bucket into an object storage.
 
 To create an object storage bucket, click in menu -> Object Storage -> Object storage
 
-![oracle cloud site!](images/20.png "oracle Cloud site")
+![oracle cloud site!](images/259.png "oracle Cloud site")
 
 Make sure that you are in the right compartment:
 
