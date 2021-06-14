@@ -336,7 +336,7 @@ Input the follow information on the analytics:
 
 Then click in "Create".
 
-![oracle cloud site!](images/188.png "oracle Cloud site")
+![oracle cloud site!](images/266.png "oracle Cloud site")
 
 ![oracle cloud site!](images/189.png "oracle Cloud site")
 
@@ -371,7 +371,7 @@ We have 2 ways to access APEX: Via Autonomous Database Service or APEX Services.
 
 In this workshop, we will access via APEX Services. So you need to click menu "database related Services" on "APEX Application Development -> APEX Instances"
 
-![oracle cloud site!](images/190.png "oracle Cloud site")
+![oracle cloud site!](images/267.png "oracle Cloud site")
 
 Note that you have 2 APEX services. This services is related to the ADBs created in previous sections. So click on the ATP service on APEX:
 
