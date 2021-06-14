@@ -220,7 +220,7 @@ Continue choosing this options:
 - No auto scaling
 - Choose the admin Password that you want
 
-![oracle cloud site!](images/262.png "oracle Cloud site")
+![oracle cloud site!](images/263.png "oracle Cloud site")
 
 Options that you need to choose:
 - Allow Secure access from everywhere
@@ -228,7 +228,7 @@ Options that you need to choose:
 
 And then click in "Create autonomous database":
 
-![oracle cloud site!](images/263.png "oracle Cloud site")
+![oracle cloud site!](images/264.png "oracle Cloud site")
 
 During creation process time, you will see the amber color of word "ATP":
 
