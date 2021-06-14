@@ -1,0 +1,28 @@
+declare
+  v_region     varchar2(30) :=    'substitua aqui'; --'coloque aqui a region, exemplo us-phoenix-1';
+  v_namespace  varchar2(30) :=    'substitua aqui'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
+  v_bucket     varchar2(30) :=    'substitua aqui'; --'console cloud-> Object Storage -> Bucket Details exemplo: Workshop_Object';
+  v_url        varchar2(4000);
+begin
+  v_url := 'https://swiftobjectstorage.'||v_region||'.oraclecloud.com/v1/'||v_namespace||'/'||v_bucket||'/vendas.csv';
+
+   DBMS_CLOUD.CREATE_EXTERNAL_TABLE(
+    table_name =>'VENDAS',
+    credential_name =>'OCI_CLOUD_STORAGE_CRED',
+    file_uri_list => v_url,
+    format => json_object('delimiter' value ',','skipheaders' value '1'),
+    column_list => 'id          VARCHAR2(4000), 
+         id_cliente  VARCHAR2(4000), 
+         id_pedido   VARCHAR2(4000), 
+         id_produto  VARCHAR2(4000), 
+         data_pedido VARCHAR2(4000), 
+         valor       VARCHAR2(4000), 
+         quantidade  VARCHAR2(4000), 
+         valor_total VARCHAR2(4000), 
+         canal       VARCHAR2(4000), 
+         unidade     VARCHAR2(4000), 
+         latitude    VARCHAR2(4000), 
+         longitude   VARCHAR2(4000)'
+ );
+END;
+/
