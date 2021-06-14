@@ -26,3 +26,27 @@ begin
  );
 END;
 /
+===============================================================
+
+create table produto
+(ID_PRODUTO NUMBER,
+    CATEGORIA_PRODUTO VARCHAR(50),
+    PRODUTO VARCHAR(100));
+
+
+declare
+  v_region     varchar2(30) :=    'substitua aqui'; --'coloque aqui a region, exemplo us-phoenix-1';
+  v_namespace  varchar2(30) :=    'substitua aqui'; --'console cloud-> Object Storage -> Bucket Details-> <namespace>';
+  v_bucket     varchar2(30) :=    'substitua aqui'; --'console cloud-> Object Storage -> Bucket Details exemplo: Workshop_Object';
+  v_url        varchar2(4000);
+begin
+  v_url := 'https://swiftobjectstorage.'||v_region||'.oraclecloud.com/v1/'||v_namespace||'/'||v_bucket||'/dimensao_produto.csv';
+
+dbms_cloud.copy_data(
+table_name =>'PRODUTO',
+credential_name =>'OCI_CLOUD_STORAGE_CRED',
+file_uri_list =>v_url,
+format => json_object('ignoremissingcolumns' value 'true','removequotes' value 'true', 'delimiter' value ',', 'skipheaders' value '1', 'dateformat' value 'MM/DD/YYYY')
+);
+end;
+/
